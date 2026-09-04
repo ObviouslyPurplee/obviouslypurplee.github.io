@@ -8,79 +8,200 @@
   <meta name="description" content="obviouslypurple — roblox developer • ui + 3d artist • project manager" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    @font-face{font-family:'Panamericana Uno';src:url('Panamericana%20Uno.otf') format('opentype'),local('Panamericana Uno');font-style:normal;font-weight:400;font-display:swap;ascent-override:155%;descent-override:38%;line-gap-override:12%}
     :root{
-      --bg:#ffffff; --ink:#1f1f24; --muted:#5f5f6b; --pink:#ffd8ea; --accent:#ff9bc8; --green:#b6f2c1;
-      --card:#ffffff; --radius:10px; --shadow:0 8px 26px rgba(31,31,36,.08); --max:1000px;
+      --bg:#000000; --ink:#FCE98F; --muted:#FCE98F; --pink:#69626C; --accent:#D89CFF; --green:#b6f2c1;
+      --card:#ffffff; --radius:10px; --shadow:0 8px 26px rgba(31,31,36,.08); --max:1440px; --page-pad:clamp(16px,3vw,48px);
     }
     :root[data-theme="dark"]{
-      --bg:#1a1a1a; --ink:#ffffff; --muted:#cccccc; --card:#2a2a2a; --shadow:0 8px 26px rgba(0,0,0,.6);
-      --accent:#ff9bc8; --green:#3bb273;
+      --bg:#000000; --ink:#FCE98F; --muted:#FCE98F; --card:rgba(36,27,39,.78); --shadow:0 12px 34px rgba(0,0,0,.65);
+      --accent:#D89CFF; --green:#3bb273;
     }
+    :root.monochrome{--bg:#000; --ink:#f5f5f5; --muted:#c8c8c8; --pink:#666; --accent:#fff; --green:#ddd; --card:rgba(20,20,20,.88);}
+    :root.monochrome body::before{background:radial-gradient(circle at 24% 30%,rgba(125,125,125,.48) 0 8%,transparent 32%),radial-gradient(circle at 76% 68%,rgba(38,38,38,.98) 0 13%,transparent 40%),radial-gradient(circle at 62% 18%,rgba(100,100,100,.28) 0 7%,transparent 28%),#000;}
+    :root.monochrome body::after{background:conic-gradient(from 90deg at 50% 50%,transparent,rgba(45,45,45,.78),transparent 38%,rgba(115,115,115,.22),transparent 72%);}
+    :root.monochrome #fogFX,:root.monochrome #shimmerFX{filter:grayscale(1) blur(8px)}
+    :root.monochrome .brand img{filter:grayscale(1) drop-shadow(0 0 7px rgba(255,255,255,.22)); animation:none}
+    :root.monochrome .brand:hover img{filter:brightness(0) invert(1) drop-shadow(0 0 12px rgba(255,255,255,.48))}
+    :root.monochrome .left-nav a,:root.monochrome .icon,:root.monochrome h1,:root.monochrome h2,:root.monochrome h3,:root.monochrome .intro h2,:root.monochrome .intro p,:root.monochrome .meta,:root.monochrome .hero .btn{color:var(--ink);}
+    :root.monochrome .card{background:linear-gradient(145deg,rgba(38,38,38,.9),rgba(15,15,15,.94)); border-color:rgba(255,255,255,.2)}
+    :root.monochrome .meta span:first-child{color:#f5f5f5}
+    :root.monochrome .meta span:last-child{color:#bdbdbd}
+    :root.monochrome .tab{background:rgba(25,25,25,.65); color:#ddd; border-color:#555}
+    :root.monochrome .see-more.green{background:#dedede; border-color:#dedede; color:#171717}
+    :root.monochrome .project-kicker,:root.monochrome .gallery-block-title,:root.monochrome .gallery-link::after,:root.monochrome #project-detail-description h3,:root.monochrome #project-detail-description li::before,:root.monochrome .changelog-item time{color:#ddd}
+    :root.monochrome .gallery-link,:root.monochrome #project-detail-description,:root.monochrome #project-detail-description strong,:root.monochrome #project-detail-description li,:root.monochrome .changelog-item h4{color:#f1f1f1}
+    :root.monochrome #project-detail-description>p:first-child{border-left-color:#ddd}
+    :root.monochrome .intro p{color:#ededed; background:rgba(255,255,255,.055); border-color:rgba(255,255,255,.2)}
+    :root.monochrome .hero .btn{color:#f2f2f2; background:rgba(18,18,18,.7); border-color:#aaa}
+    :root.monochrome .hero .btn:hover{color:#111; background:#f2f2f2; border-color:#f2f2f2; box-shadow:0 0 18px rgba(255,255,255,.22)}
+    :root.monochrome .left-nav a{font-family:'Panamericana Uno','STIX Two Text',serif}
+    :root.monochrome header{padding-top:clamp(18px,2vw,28px); padding-bottom:clamp(18px,2vw,28px); overflow:visible}
+    :root.monochrome .left-nav{min-height:clamp(72px,6vw,92px); overflow:visible; isolation:isolate}
+    :root.monochrome .left-nav a{display:flex; align-items:center; min-height:clamp(72px,6vw,92px); margin:-26px; padding:26px 34px; border:0; color:#f5f5f5!important; font-size:clamp(20px,1.7vw,27px); font-weight:400; line-height:2; white-space:nowrap; overflow:visible; transform:none!important; filter:none!important; text-shadow:none!important; background:none!important; box-shadow:none!important; transition:none!important}
+    :root.monochrome .left-nav a::after{display:none}
+    :root.monochrome .left-nav a::before{display:block; inset:21px 24px; border-radius:45%; opacity:0; background:radial-gradient(ellipse,rgba(255,255,255,.2),rgba(255,255,255,.07) 42%,transparent 72%); transform:scale(.78); transition:opacity .2s ease,transform .2s ease}
+    :root.monochrome .left-nav a:hover::before{opacity:1; transform:scale(1)}
+    :root.monochrome .left-nav a:hover{color:#f5f5f5!important; border:0; background:none!important}
+    :root.monochrome .intro h2{line-height:1.65; overflow:visible}
+    :root.monochrome .intro-name{display:inline-block; padding:.12em .04em .08em; font-family:'Panamericana Uno','STIX Two Text',serif; font-size:1.55em; font-weight:400; line-height:1; vertical-align:-.06em; overflow:visible}
+    :root.monochrome .left-nav a::after{background:#fff}
+    :root.monochrome .tab.is-active{background:#eee; color:#111; border-color:#eee}
     body[data-active-theme="cooked"] { --accent:#ff6b35; --pink:#ffad99; }
     body[data-active-theme="treasure"] { --accent:#ffcc00; --pink:#bde0fe; }
     body[data-active-theme="showcases"] { --accent:#8b5cf6; --pink:#e0d4ff; }
     body[data-active-theme="wmg"] { --accent:#1e90ff; --pink:#a0d8f1; }
     body[data-active-theme="voyage"] { --accent:#00bfff; --pink:#b3e5fc; }
+    body[data-active-theme="rocitizens"] { --accent:#E8C65C; --pink:#7EA4C9; }
 
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0; font-family:'Space Mono',monospace; color:var(--ink); background:var(--bg); text-transform:lowercase;}
+    body,.card,.tab,.btn,.icon,.left-nav a,h1,h2,h3,p,.meta,footer,.cl-panel,.gallery-panel,.changelog-panel{transition:color .75s ease,background-color .75s ease,border-color .75s ease,box-shadow .75s ease,filter .75s ease;}
+    ::view-transition-group(root){animation-duration:1.35s}
+    ::view-transition-old(root){animation:mode-fade-out 1.35s cubic-bezier(.4,0,.2,1) both}
+    ::view-transition-new(root){animation:mode-reveal 1.35s cubic-bezier(.16,1,.3,1) both}
+    @keyframes mode-fade-out{0%{opacity:1;transform:scale(1);filter:blur(0)}55%{opacity:.5}100%{opacity:0;transform:scale(.975);filter:blur(10px)}}
+    @keyframes mode-reveal{0%{opacity:0;transform:scale(1.025);filter:brightness(1.18) blur(10px)}38%{opacity:.58;filter:brightness(1.08) blur(4px)}100%{opacity:1;transform:scale(1);filter:brightness(1) blur(0)}}
+    :root.mode-switching body,:root.mode-switching .card,:root.mode-switching .tab,:root.mode-switching .btn,:root.mode-switching .icon,:root.mode-switching .left-nav a,:root.mode-switching h1,:root.mode-switching h2,:root.mode-switching h3,:root.mode-switching p,:root.mode-switching .meta,:root.mode-switching footer{transition:none!important}
+    :root.mode-switching .brand::after{content:""; position:absolute; width:24px; height:24px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,rgba(252,233,143,.32),rgba(216,156,255,.13) 40%,transparent 72%); animation:mode-halo 1.35s cubic-bezier(.16,1,.3,1) both;}
+    @keyframes mode-halo{0%{opacity:0;transform:scale(.15)}18%{opacity:.75}100%{opacity:0;transform:scale(13)}}
+    body{margin:0; font-family:'STIX Two Text',serif; color:var(--ink); background:#000; text-transform:lowercase; overflow-x:hidden;}
+    button,input,textarea,select{font:inherit}
+    body::before,body::after{content:""; position:fixed; inset:-35%; z-index:-3; pointer-events:none; will-change:transform;}
+    body::before{background:
+      radial-gradient(circle at 24% 30%, rgba(105,98,108,.92) 0 8%, transparent 32%),
+      radial-gradient(circle at 76% 68%, rgba(36,27,39,.98) 0 13%, transparent 40%),
+      radial-gradient(circle at 62% 18%, rgba(105,98,108,.48) 0 7%, transparent 28%),
+      #000;
+      animation:background-drift 22s ease-in-out infinite alternate;
+    }
+    body::after{background:conic-gradient(from 90deg at 50% 50%, transparent, rgba(36,27,39,.78), transparent 38%, rgba(105,98,108,.34), transparent 72%); filter:blur(70px); opacity:.85; animation:background-orbit 30s linear infinite;}
+    @keyframes background-drift{0%{transform:translate3d(-3%,-2%,0) scale(1) rotate(-2deg)}50%{transform:translate3d(4%,3%,0) scale(1.08) rotate(2deg)}100%{transform:translate3d(-1%,5%,0) scale(1.03) rotate(-1deg)}}
+    @keyframes background-orbit{to{transform:rotate(360deg) scale(1.08)}}
+    .page-transition{position:fixed; inset:0; z-index:45; pointer-events:none; opacity:0; visibility:hidden; overflow:hidden; background:radial-gradient(ellipse at center,rgba(36,27,39,.3) 0 38%,rgba(0,0,0,.94) 100%)}
+    .page-transition::before{content:""; position:absolute; inset:0; opacity:.11; background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(252,233,143,.22) 4px,transparent 5px)}
+    .page-transition::after{content:""; position:absolute; left:0; right:0; height:2px; top:-3%; opacity:.2; background:#FCE98F; box-shadow:0 0 16px rgba(252,233,143,.35)}
+    .page-transition.is-moving{visibility:visible; animation:page-exposure .62s cubic-bezier(.4,0,.2,1) both}
+    .page-transition.is-moving::before{animation:film-flicker .62s steps(4,end) both}
+    .page-transition.is-moving::after{animation:film-roll .62s ease-in both}
+    @keyframes page-exposure{0%,100%{opacity:0}30%{opacity:.68}47%{opacity:.82}68%{opacity:.28}}
+    @keyframes film-flicker{0%{opacity:0}24%{opacity:.08}42%{opacity:.16}55%{opacity:.06}72%{opacity:.12}100%{opacity:0}}
+    @keyframes film-roll{0%{top:-3%;opacity:0}22%{opacity:.16}75%{opacity:.09}100%{top:103%;opacity:0}}
+    main.page-enter{animation:page-enter .52s cubic-bezier(.2,.75,.25,1) both}
+    @keyframes page-enter{0%{opacity:0;filter:grayscale(.55) contrast(1.18) blur(2px)}45%{opacity:.62;filter:grayscale(.2) contrast(1.08) blur(.6px)}100%{opacity:1;filter:none}}
+    :root.monochrome .page-transition{background:radial-gradient(ellipse at center,rgba(55,55,55,.24) 0 38%,rgba(0,0,0,.96) 100%)}
+    :root.monochrome .page-transition::before{background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.18) 4px,transparent 5px)}
+    :root.monochrome .page-transition::after{background:#eee; box-shadow:0 0 14px rgba(255,255,255,.25)}
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:20px 16px 64px; position:relative; z-index:1}
+    .wrap{width:min(100%,var(--max)); margin:0 auto; padding:clamp(6px,.9vw,14px) var(--page-pad) clamp(48px,6vw,88px); position:relative; z-index:1}
+    .wrap::before{content:""; position:fixed; inset:-50%; z-index:-1; pointer-events:none; opacity:.022; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E"); animation:vintage-noise 1.4s steps(2,end) infinite;}
+    @keyframes vintage-noise{0%{transform:translate3d(-2%,-1%,0)}25%{transform:translate3d(1%,2%,0)}50%{transform:translate3d(2%,-2%,0)}75%{transform:translate3d(-1%,1%,0)}100%{transform:translate3d(1%,-1%,0)}}
 
-    header{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:12px 0; border-bottom:1px solid var(--pink);}
-    .left-nav{display:flex; gap:18px; align-items:center}
-    .left-nav a{position:relative; padding:6px 2px; color:var(--ink); cursor:pointer;}
-    .left-nav a::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:.2s;}
+    header{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:clamp(5px,.8vw,10px) 0; border-bottom:1px solid var(--pink);}
+    .left-nav{display:flex; gap:clamp(12px,1.6vw,24px); align-items:center}
+    .left-nav a{position:relative; z-index:0; padding:6px 2px; color:#D89CFF; cursor:pointer; transition:color .2s ease;}
+    .left-nav a::before{content:""; position:absolute; inset:-8px -12px; z-index:-1; border-radius:50%; pointer-events:none; opacity:0; background:radial-gradient(ellipse,rgba(252,233,143,.2),transparent 68%); transform:scale(.72); transition:opacity .22s ease,transform .22s ease}
+    .left-nav a::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:#FCE98F; transform:scaleX(0); transform-origin:left; transition:.2s;}
     .left-nav a:hover::after{transform:scaleX(1)}
-    .left-nav a:hover{color:var(--accent)}
+    .left-nav a:hover{color:#FCE98F}
+    .left-nav a:hover::before{opacity:1; transform:scale(1)}
 
-    .brand{display:flex; justify-content:center; align-items:center}
-    .brand img{height:50px; filter:var(--logo-filter,none); transition:.3s;}
+    .brand{display:flex; justify-content:center; align-items:center; position:relative}
+    .brand img{display:block; width:clamp(145px,12vw,190px); height:auto; object-fit:contain; filter:drop-shadow(0 0 7px rgba(251,233,144,.28)); transition:filter .5s ease;}
     .brand[role=button]{cursor:pointer}
-    .brand:hover img{transform:translateY(-2px); filter:var(--logo-filter,none) drop-shadow(0 0 10px var(--accent))}
+    .brand:hover img{filter:brightness(0) invert(1) drop-shadow(0 0 12px rgba(255,255,255,.48))}
+    .brand-hint{position:absolute; left:50%; top:calc(100% - 3px); width:max-content; opacity:0; color:#D89CFF; font-size:12px; letter-spacing:.14em; text-transform:lowercase; pointer-events:none; transform:translate(-50%,4px); transition:opacity .35s ease,transform .35s ease,text-shadow .35s ease}
+    .brand:hover .brand-hint,.brand:focus-visible .brand-hint{opacity:.72; transform:translate(-50%,0); text-shadow:0 0 9px rgba(216,156,255,.38)}
+    :root.mode-switching .brand-hint{opacity:0}
+    @keyframes logo-soft-glow{
+      0%,68%,100%{filter:var(--logo-filter,none) drop-shadow(0 0 0 rgba(251,233,144,0))}
+      74%{filter:var(--logo-filter,none) drop-shadow(0 0 4px rgba(251,233,144,.18))}
+      80%{filter:var(--logo-filter,none) drop-shadow(0 0 7px rgba(251,233,144,.28))}
+      86%{filter:var(--logo-filter,none) drop-shadow(0 0 3px rgba(251,233,144,.12))}
+    }
 
-    .right-socials{display:flex; justify-content:flex-end; gap:14px; align-items:center}
-    .icon{width:28px; height:28px; display:grid; place-items:center; border-radius:8px; color:var(--ink);}
-    .icon:hover{color:var(--accent)}
+    .right-socials{display:flex; justify-content:flex-end; gap:clamp(10px,1.25vw,18px); align-items:center}
+    .icon{width:clamp(25px,2.2vw,32px); height:clamp(25px,2.2vw,32px); display:grid; place-items:center; border-radius:8px; color:#D89CFF;}
+    .icon:hover{color:#FCE98F; filter:drop-shadow(0 0 10px rgba(252,233,143,.62)) drop-shadow(0 0 3px rgba(252,233,143,.45))}
     .icon svg{width:100%; height:100%; fill:currentColor}
 
-    .hero{margin:60px 0; text-align:center}
-    .intro h2{margin:0 0 12px; font-size:18px; line-height:1.6}
-    .intro p{margin:0 0 18px; color:var(--muted); font-size:13px}
+    .hero{margin:clamp(20px,2.8vw,40px) 0 clamp(26px,3vw,42px); text-align:center}
+    h1,h2,h3,.intro h2{color:#FCE98F}
+    .intro{display:flex; flex-direction:column; align-items:center}
+    .intro h2{width:min(88vw,980px); margin:0 0 clamp(15px,1.6vw,22px); font-size:clamp(18px,1.55vw,25px); line-height:1.35; font-weight:600}
+    .intro p{width:min(86vw,900px); margin:0 0 22px; padding:clamp(14px,1.5vw,20px) clamp(16px,2vw,28px); color:#FFF4B8; font-size:clamp(14px,1.05vw,17px); line-height:1.75; background:rgba(252,233,143,.045); border:1px solid rgba(252,233,143,.13); border-radius:10px}
+    .hero .btn{color:#D89CFF; border-color:#D89CFF}
     .btn{font-size:12px; padding:8px 10px; border:1px solid var(--ink); background:transparent; cursor:pointer; color:var(--ink); transition:.2s;}
-    .btn:hover{background:var(--pink); border-color:var(--pink); color:var(--ink)}
+    .btn:hover{background:var(--pink); border-color:var(--pink); color:var(--ink); box-shadow:0 0 15px rgba(252,233,143,.22)}
 
-    .tabs{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:20px}
-    .tab{appearance:none; border:1px solid #f0d9e6; background:#fff; color:#6c6068; padding:6px 10px; border-radius:999px; font-size:11px; cursor:pointer;}
+    .tabs{display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:30px}
+    .tab{appearance:none; border:1px solid rgba(252,233,143,.3); background:#171319; color:#ded1df; padding:8px 15px 7px; border-radius:999px; font-size:12px; cursor:pointer; letter-spacing:.035em; transition:transform .2s ease,color .2s ease,background .2s ease,border-color .2s ease;}
+    .tab:hover{transform:translateY(-2px) rotate(-1deg)}
     .tab:hover{background:var(--pink-200, #ffe6f1); color:#2a2a30; border-color:var(--pink)}
-    .tab.is-active{background:var(--ink); color:#fff; border-color:var(--ink)}
+    .tab.is-active{background:#FCE98F; color:#1b151d; border-color:#FCE98F}
     :root[data-theme="dark"] .tab{background:transparent; color:#e9e6ea; border:1px solid rgba(255,155,200,.35);}
     :root[data-theme="dark"] .tab:hover{background:rgba(255,155,200,.25); color:#fff; border-color:var(--accent)}
-    :root[data-theme="dark"] .tab.is-active{background:var(--accent); color:#1a1216; border-color:var(--accent)}
+    :root[data-theme="dark"] .tab.is-active{background:#FCE98F; color:#1a1216; border-color:#FCE98F}
 
-    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; margin-top:20px}
-    .card{background:var(--card); border:1px solid var(--pink); border-radius:var(--radius); padding:12px; box-shadow:var(--shadow); transition:border-color .3s;}
-    .shot{position:relative; aspect-ratio:16/10; border-radius:8px; background:#faf6f9; display:grid; place-items:center; color:#9c8f96; border:1px dashed var(--pink); overflow:hidden;}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(20px,2vw,30px); margin-top:20px; counter-reset:portfolio-card}
+    .card{position:relative; overflow:visible; counter-increment:portfolio-card; background:#181419; border:1px solid rgba(252,233,143,.26); border-radius:20px 6px 20px 6px; padding:8px; box-shadow:6px 7px 0 rgba(105,98,108,.2); transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s ease,box-shadow .3s ease;}
+    .card:nth-child(3n+2){transform:translateY(10px)}
+    .card::before{content:""; position:absolute; inset:3px; pointer-events:none; border:1px solid rgba(255,255,255,.04); border-radius:17px 4px 17px 4px; z-index:1;}
+    .card:hover,.card:nth-child(3n+2):hover{transform:translate(-3px,-4px) rotate(-.35deg); border-color:rgba(252,233,143,.55); box-shadow:10px 12px 0 rgba(105,98,108,.24)}
+    .shot{position:relative; aspect-ratio:16/10; border-radius:14px 3px 12px 3px; background:#faf6f9; display:grid; place-items:center; color:#9c8f96; border:1px solid rgba(252,233,143,.18); overflow:hidden; isolation:isolate; transition:transform .35s ease}
+    .card:hover .shot{transform:scale(1.012)}
+    .shot::after{content:""; position:absolute; inset:0; z-index:0; pointer-events:none; background:linear-gradient(to top,rgba(0,0,0,.18),transparent 42%); transition:opacity .3s ease;}
     :root[data-theme="dark"] .shot{background:#1a1a1a; color:var(--muted)}
     .shot.has-img{background-size:cover !important; background-position:center !important; border:none; color:transparent}
-    .meta{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:8px; color:var(--muted); font-size:10px}
+    .meta{display:grid; grid-template-columns:minmax(0,1fr); gap:5px; padding:11px 7px 8px; margin-top:7px; text-align:left; color:#FCE98F; border-top:1px solid rgba(252,233,143,.18)}
+    .meta::before{content:"selected work — 0" counter(portfolio-card); font-size:9px; line-height:1; color:#9f929f; letter-spacing:.16em; text-transform:uppercase}
+    .meta span:first-child{font-size:17px; line-height:1.15; font-weight:600; letter-spacing:.005em; color:#FFF1A8}
+    .meta span:last-child{font-size:12px; line-height:1.4; color:#cfc4d2; letter-spacing:.02em; font-style:italic}
 
     footer{margin-top:60px; padding:20px; border-top:1px solid #f2e6ee; text-align:center;}
     :root[data-theme="dark"] footer{border-top:1px solid var(--pink)}
     .footer-socials{display:flex; justify-content:center; gap:18px; margin-top:14px}
     .footer-socials .icon svg{width:22px; height:22px; fill:currentColor}
-    .footer-socials .icon:hover svg{fill:var(--accent)}
+    .footer-socials .icon:hover svg{fill:#FCE98F}
     .footer-discord{margin-top:6px; font-size:12px; color:var(--muted);}
+    .footer-contact,.footer-meta,.footer-meta a{color:#D89CFF}
+    .footer-meta a{transition:color .2s ease,text-shadow .2s ease}
+    .footer-meta a:hover{color:#FCE98F; text-shadow:0 0 10px rgba(252,233,143,.38)}
+
+    #page-news{width:min(100%,980px); margin:clamp(28px,4vw,58px) auto 0}
+    .news-heading{display:flex; align-items:end; justify-content:space-between; gap:20px; margin:0 0 25px; padding-bottom:15px; border-bottom:1px solid rgba(252,233,143,.22)}
+    .news-heading h2{margin:0; font-size:clamp(30px,4vw,48px); line-height:1}
+    .news-heading span{color:#a99dab; font-size:10px; letter-spacing:.17em; text-transform:uppercase}
+    #news-container{display:grid; gap:clamp(18px,2.4vw,28px)}
+    .news-post{position:relative; display:grid; grid-template-columns:clamp(76px,8vw,104px) minmax(0,1fr); gap:clamp(18px,2.6vw,32px); padding:clamp(20px,2.8vw,34px); background:linear-gradient(145deg,rgba(35,28,37,.9),rgba(18,15,20,.94)); border:1px solid rgba(252,233,143,.22); border-radius:22px 5px 22px 5px; box-shadow:7px 8px 0 rgba(105,98,108,.18); overflow:hidden}
+    .news-post::after{content:"bulletin — " attr(data-entry); position:absolute; right:20px; top:17px; color:#807581; font-size:9px; letter-spacing:.15em; text-transform:uppercase}
+    .news-post.is-featured{border-color:rgba(216,156,255,.43); background:linear-gradient(135deg,rgba(57,42,61,.94),rgba(24,20,27,.96))}
+    .news-avatar{align-self:start; padding:5px; background:#161217; border:1px solid rgba(252,233,143,.25); border-radius:18px 4px 18px 4px; box-shadow:4px 5px 0 rgba(0,0,0,.2)}
+    .news-avatar img{display:block; width:100%; aspect-ratio:1; object-fit:cover; border-radius:13px 2px 13px 2px}
+    .news-copy{min-width:0; padding-top:2px}
+    .news-author{margin:0 0 3px; padding-right:90px; color:#D89CFF; font-size:clamp(18px,2vw,24px); font-weight:600}
+    .news-date{display:block; margin-bottom:clamp(14px,1.8vw,20px); color:#a99dab; font-size:11px; letter-spacing:.08em}
+    .news-message{margin:0; color:#FFF4B8; font-size:clamp(15px,1.35vw,18px); line-height:1.65}
+    .news-post.is-featured .news-message::before{content:"new"; display:inline-block; margin-right:9px; padding:3px 7px 2px; color:#1b151d; background:#FCE98F; border-radius:7px 2px 7px 2px; font-size:9px; letter-spacing:.12em; text-transform:uppercase; vertical-align:.15em}
+    :root.monochrome .news-heading span,:root.monochrome .news-date{color:#aaa}
+    :root.monochrome .news-post,:root.monochrome .news-post.is-featured{background:linear-gradient(145deg,rgba(38,38,38,.94),rgba(13,13,13,.97)); border-color:rgba(255,255,255,.24); box-shadow:7px 8px 0 rgba(255,255,255,.07)}
+    :root.monochrome .news-author,:root.monochrome .news-message{color:#eee}
+    :root.monochrome .news-post.is-featured .news-message::before{color:#111; background:#eee}
 
     #fogFX, #shimmerFX{position:fixed; inset:0; z-index:-1; width:100vw; height:100vh; pointer-events:none;}
-    #fogFX{filter:blur(3.5px); mix-blend-mode:multiply}
-    :root[data-theme="dark"] #fogFX{mix-blend-mode:screen; filter:blur(3px)}
+    #fogFX{filter:blur(8px); mix-blend-mode:screen; opacity:.4}
+    :root[data-theme="dark"] #fogFX{mix-blend-mode:screen; filter:blur(8px)}
     #shimmerFX{opacity:0; transition:opacity .35s}
     :root.shimmer-on #shimmerFX{opacity:.5}
     :root.galaxy-on #shimmerFX{opacity:.78}
+    #petalFX{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; opacity:0; visibility:hidden; transition:opacity 1.2s ease,visibility 1.2s ease;}
+    :root.monochrome #petalFX{opacity:1; visibility:visible}
+    .petal{position:absolute; top:-8vh; left:var(--x); width:var(--size); height:calc(var(--size) * .62); opacity:var(--alpha); border-radius:82% 12% 76% 18%; background:radial-gradient(circle at 28% 28%,#fff,transparent 34%),linear-gradient(145deg,#ededed,#8f8f8f); border:1px solid rgba(255,255,255,.45); box-shadow:inset -2px -2px 3px rgba(0,0,0,.16),inset 1px 1px 2px rgba(255,255,255,.32); filter:blur(.1px); animation:petal-fall var(--duration) linear var(--delay) infinite; transform-origin:center;}
+    .petal::before{content:""; position:absolute; left:14%; top:51%; width:72%; height:1px; opacity:.24; background:linear-gradient(90deg,transparent,#555 20% 74%,transparent); transform:rotate(-22deg); transform-origin:left center;}
+    .petal::after{content:""; position:absolute; left:27%; top:28%; width:18%; height:18%; border-radius:50%; background:rgba(255,255,255,.16); filter:blur(1px);}
+    @keyframes petal-fall{0%{transform:translate3d(0,-10vh,0) rotate(0deg)}35%{transform:translate3d(var(--drift),38vh,0) rotate(125deg)}70%{transform:translate3d(calc(var(--drift) * -.45),78vh,0) rotate(245deg)}100%{transform:translate3d(calc(var(--drift) * .35),112vh,0) rotate(360deg)}}
 
     /* GALAXY BACKGROUND - FIXED */
     :root.galaxy-on {
@@ -106,56 +227,146 @@
     }
 
     .labels{position:absolute; top:10px; left:10px; right:10px; display:flex; justify-content:space-between; gap:8px; z-index:5;}
-    .see-more{--t:255,120,196; --ring:255,220,240; --label-ink:#fff; position:relative; display:inline-flex; align-items:center; gap:8px; padding:9px 16px; font-size:12px; font-weight:700; border-radius:999px; opacity:0; transform:translateY(-6px); transition:.18s; pointer-events:none; color:var(--label-ink); border:1px solid rgba(var(--ring),.7); background:linear-gradient(180deg,rgba(var(--t),.42),rgba(var(--t),.18)); backdrop-filter:blur(12px) saturate(160%);}
-    .see-more::after{content:""; position:absolute; top:0; left:-40%; width:40%; height:100%; border-radius:inherit; background:linear-gradient(90deg,transparent, rgba(255,255,255,.35), transparent); transform:skewX(-20deg) translateX(-10%); transition:.6s;}
+    .see-more{--label-ink:#fff; position:relative; display:inline-flex; align-items:center; gap:7px; padding:8px 12px 7px; font-size:12px; font-weight:600; border-radius:8px 2px 8px 2px; opacity:0; transform:translateY(-4px); transition:opacity .2s ease,transform .2s ease,background .2s ease,color .2s ease; pointer-events:none; color:var(--label-ink); border:1px solid rgba(255,255,255,.32); background:rgba(14,11,15,.88); backdrop-filter:blur(10px); box-shadow:3px 3px 0 rgba(0,0,0,.24);}
+    .see-more::before{font-size:11px; opacity:.8}
+    .see-more::after{content:""; position:absolute; inset:auto 9px 4px; height:1px; background:currentColor; opacity:.3; transform:scaleX(0); transform-origin:left; transition:transform .25s ease;}
     .card:hover .see-more{opacity:1; transform:none; pointer-events:auto;}
-    .card:hover .see-more::after{transform:skewX(-20deg) translateX(230%)}
-    .see-more.pink{--t:255,120,196; --ring:255,220,240; --label-ink:#201018}
-    .see-more.green{--t:48,255,168; --ring:210,255,235; --label-ink:#0a0a0a}
-    :root[data-theme="dark"]{--logo-filter:brightness(0) invert(1)}
+    .card:hover .see-more::after{transform:scaleX(1)}
+    .see-more.pink{--label-ink:#FCE98F; border-color:rgba(252,233,143,.45)}
+    .see-more.pink::before{content:"✦"; color:#D89CFF}
+    .see-more.green{--label-ink:#1b151d; color:#1b151d; background:#FCE98F; border-color:#FFF4B8}
+    .see-more.green::before{content:"▶"; font-size:9px}
+    .see-more:hover{transform:translate(-1px,-2px); box-shadow:5px 5px 0 rgba(0,0,0,.3),0 0 16px rgba(252,233,143,.25)}
+    :root[data-theme="dark"]{--logo-filter:none}
+
+    /* Project profiles */
+    #page-project-detail{padding-top:24px}
+    .project-back{margin:0 0 26px}
+    .project-back .btn{display:inline-flex; align-items:center; gap:10px; padding:9px 14px 8px 11px; color:#D89CFF; background:rgba(24,20,25,.62); border:1px solid rgba(216,156,255,.3); border-radius:12px 3px 12px 3px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; backdrop-filter:blur(8px); transition:color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+    .project-back .btn::before{content:"‹"; display:grid; place-items:center; width:22px; height:22px; color:#171318; background:#FCE98F; border-radius:50%; font-size:20px; line-height:1; transition:transform .2s ease,box-shadow .2s ease}
+    .project-back .btn:hover{color:#FCE98F; background:rgba(35,28,37,.8); border-color:rgba(252,233,143,.48); box-shadow:0 0 17px rgba(252,233,143,.1); transform:translateX(-2px)}
+    .project-back .btn:hover::before{transform:translateX(-2px); box-shadow:0 0 10px rgba(252,233,143,.28)}
+    .project-layout{display:grid; grid-template-columns:minmax(300px,clamp(360px,35vw,500px)) minmax(0,1fr); gap:clamp(30px,4vw,64px); align-items:start}
+    .project-visual{position:sticky; top:24px}
+    .project-cover-frame{position:relative; padding:8px; background:#171318; border:1px solid rgba(252,233,143,.25); border-radius:20px 5px 20px 5px; box-shadow:7px 8px 0 rgba(105,98,108,.2)}
+    .project-cover-frame::after{content:"featured project"; position:absolute; left:18px; bottom:15px; padding:4px 8px; color:#171318; background:#FCE98F; font-size:9px; letter-spacing:.12em; text-transform:uppercase}
+    #project-detail-img{display:block; width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:13px 2px 13px 2px}
+    .gallery-block{margin-top:25px}
+    .gallery-block-title{display:flex; align-items:center; gap:10px; margin:0 0 10px; color:#9f929f; font-size:10px; letter-spacing:.16em; text-transform:uppercase}
+    .gallery-block-title::after{content:""; height:1px; flex:1; background:rgba(252,233,143,.18)}
+    #gallery-buttons{display:grid; gap:8px}
+    .gallery-link{position:relative; width:100%; margin:0; padding:11px 38px 10px 13px; color:#FCE98F; background:rgba(24,20,25,.78); border:1px solid rgba(252,233,143,.2); border-radius:10px 2px 10px 2px; text-align:left; font-size:12px; line-height:1.3; cursor:pointer; transition:transform .2s ease,border-color .2s ease,background .2s ease}
+    .gallery-link::after{content:"↗"; position:absolute; right:13px; top:50%; color:#D89CFF; font-size:15px; transform:translateY(-52%); transition:transform .2s ease}
+    .gallery-link:hover{transform:translateX(3px); color:#FFF4B8; background:rgba(48,37,51,.9); border-color:rgba(216,156,255,.48)}
+    .gallery-link:hover::after{transform:translate(2px,-65%)}
+    .project-copy{padding:8px 0 40px}
+    .project-kicker{margin-bottom:9px; color:#D89CFF; font-size:10px; letter-spacing:.18em; text-transform:uppercase}
+    #project-detail-title{display:flex; align-items:center; gap:12px; margin:0 0 22px; padding-bottom:18px; border-bottom:1px solid rgba(252,233,143,.22); font-size:clamp(30px,4vw,46px); line-height:1.05; font-weight:600}
+    #project-game-link{display:grid; place-items:center; width:34px; height:34px; flex:0 0 auto; color:#D89CFF; border:1px solid rgba(216,156,255,.38); border-radius:50%; transition:color .2s ease,border-color .2s ease,transform .2s ease}
+    #project-game-link:hover{color:#FCE98F; border-color:#FCE98F; transform:rotate(8deg)}
+    #project-detail-description{font-size:clamp(15px,1.1vw,18px); line-height:1.72; color:#FFF4B8}
+    #project-detail-description>p:first-child{margin:0; padding:18px 20px; background:rgba(252,233,143,.045); border-left:3px solid #D89CFF; border-radius:0 10px 10px 0}
+    #project-detail-description h3{display:flex; align-items:center; gap:12px; margin:34px 0 14px; color:#D89CFF; font-size:12px; letter-spacing:.15em; text-transform:uppercase}
+    #project-detail-description h3::after{content:""; height:1px; flex:1; background:rgba(216,156,255,.24)}
+    #project-detail-description ul{display:grid; gap:10px; margin:0; padding:0; list-style:none; counter-reset:achievement}
+    #project-detail-description li{position:relative; counter-increment:achievement; padding:14px 16px 14px 48px; color:#d8cfd9; background:rgba(24,20,25,.68); border:1px solid rgba(252,233,143,.13); border-radius:12px 3px 12px 3px}
+    #project-detail-description li::before{content:"0" counter(achievement); position:absolute; left:15px; top:15px; color:#D89CFF; font-size:10px; letter-spacing:.08em}
+    #project-detail-description strong{color:#FFF1A8; font-weight:600}
+    body[data-active-theme="rocitizens"]::before{background:radial-gradient(circle at 18% 24%,rgba(36,76,120,.9) 0 8%,transparent 34%),radial-gradient(circle at 78% 70%,rgba(11,22,38,.98) 0 16%,transparent 45%),radial-gradient(circle at 68% 16%,rgba(232,198,92,.16) 0 7%,transparent 28%),#050a11}
+    body[data-active-theme="rocitizens"] .project-kicker,body[data-active-theme="rocitizens"] .gallery-block-title,body[data-active-theme="rocitizens"] #project-detail-description h3,body[data-active-theme="rocitizens"] #project-detail-description li::before,body[data-active-theme="rocitizens"] .gallery-link::after{color:#7EA4C9}
+    body[data-active-theme="rocitizens"] #project-detail-title,body[data-active-theme="rocitizens"] #project-detail-description strong,body[data-active-theme="rocitizens"] .gallery-link{color:#E8C65C}
+    body[data-active-theme="rocitizens"] #project-detail-description>p:first-child{border-left-color:#7EA4C9}
+    body[data-active-theme="rocitizens"] .project-cover-frame,body[data-active-theme="rocitizens"] .gallery-link,body[data-active-theme="rocitizens"] #project-detail-description li{border-color:rgba(126,164,201,.36)}
+    .gallery-link[disabled]{opacity:.58; cursor:not-allowed; color:#a99f8a}
+    .gallery-link[disabled]::after{content:"—"}
+    .gallery-link[disabled]:hover{transform:none; background:rgba(24,20,25,.78); border-color:rgba(252,233,143,.2)}
 
     .cl-modal, .gallery-modal, .img-modal, .changelog-modal{position:fixed; inset:0; z-index:50; display:none;}
     .cl-modal[aria-hidden="false"], .gallery-modal[aria-hidden="false"], .img-modal[aria-hidden="false"], .changelog-modal[aria-hidden="false"]{display:grid; place-items:center;}
     .cl-backdrop, .gallery-backdrop, .img-backdrop, .changelog-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.58); backdrop-filter:blur(4px);}
-    .cl-panel, .gallery-panel, .changelog-panel{position:relative; background:var(--card); border:1px solid var(--pink); border-radius:16px; box-shadow:var(--shadow); width:90%; max-width:720px; max-height:80vh; overflow:auto;}
-    .cl-header, .gallery-header, .changelog-header{display:flex; justify-content:space-between; align-items:center; padding:14px 16px; border-bottom:1px solid var(--pink);}
+    .cl-panel, .gallery-panel, .changelog-panel{position:relative; background:rgba(22,18,23,.97); border:1px solid rgba(252,233,143,.25); border-radius:20px 5px 20px 5px; box-shadow:10px 12px 0 rgba(0,0,0,.25),var(--shadow); width:92%; max-width:960px; max-height:86vh; overflow:auto;}
+    .changelog-panel{max-width:760px}
+    .cl-header, .gallery-header, .changelog-header{position:sticky; top:0; z-index:4; display:flex; justify-content:space-between; align-items:center; padding:16px 20px; background:rgba(22,18,23,.96); backdrop-filter:blur(12px); border-bottom:1px solid rgba(252,233,143,.2);}
     .cl-close, .gallery-close, .changelog-close{background:transparent; border:none; font-size:18px; cursor:pointer; color:var(--muted)}
-    .changelog-content{padding:16px; font-size:13px; line-height:1.6;}
-    .changelog-item{margin-bottom:16px;}
-    .changelog-item time{display:block; color:var(--accent); font-weight:700; margin-bottom:4px;}
-    .changelog-item ul{margin:8px 0 0 16px;}
+    .changelog-content{position:relative; padding:28px 28px 20px 46px; font-size:14px; line-height:1.6;}
+    .changelog-content::before{content:""; position:absolute; left:25px; top:32px; bottom:30px; width:1px; background:linear-gradient(#D89CFF,rgba(252,233,143,.25));}
+    .changelog-item{position:relative; margin:0 0 34px; padding:0 0 0 15px;}
+    .changelog-item::before{content:""; position:absolute; left:-26px; top:5px; width:9px; height:9px; border-radius:50%; background:#FCE98F; border:3px solid #2b222d; box-shadow:0 0 0 1px #D89CFF;}
+    .changelog-item time{display:block; color:#D89CFF; font-size:12px; font-weight:600; letter-spacing:.08em; margin-bottom:8px;}
+    .changelog-item h4{margin:0 0 8px; color:#FCE98F; font-size:18px; font-weight:600}
+    .changelog-item ul{margin:0; padding-left:17px; color:#d7ccd8;}
+    .changelog-item li{margin:0 0 6px}
 
-    .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; padding:8px 0}
-    .gallery-item img{width:100%; height:100%; object-fit:cover; border-radius:var(--radius); cursor:pointer; transition:.2s; min-height:150px; background:#f0f0f0}
-    .gallery-item img:hover{transform:scale(1.05); box-shadow:0 0 15px rgba(255,155,200,.3)}
+    .gallery-content{padding:20px}
+    .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:16px; padding:0; counter-reset:gallery-image}
+    .gallery-item{position:relative; counter-increment:gallery-image; padding:6px 6px 25px; background:#121013; border:1px solid rgba(252,233,143,.18); border-radius:13px 3px 13px 3px; box-shadow:4px 5px 0 rgba(105,98,108,.14); transition:transform .25s ease,border-color .25s ease}
+    .gallery-item::after{content:"frame — 0" counter(gallery-image); position:absolute; left:10px; bottom:7px; color:#928793; font-size:9px; letter-spacing:.12em; text-transform:uppercase}
+    .gallery-item:hover{transform:translateY(-3px) rotate(-.25deg); border-color:rgba(216,156,255,.42)}
+    .gallery-item img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px 2px 8px 2px; cursor:pointer; transition:filter .25s ease; background:#171417}
+    .gallery-item img:hover{filter:brightness(1.07)}
 
-    .img-panel{position:relative; max-width:min(96vw,1100px); max-height:86vh; border:1px solid var(--pink); border-radius:8px; overflow:hidden; box-shadow:0 30px 60px rgba(0,0,0,.55);}
-    .img-panel img{width:100%; height:100%; object-fit:contain; background:#0f0d11}
-    .img-close{position:absolute; top:8px; right:8px; background:rgba(0,0,0,.55); color:#fff; border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:6px 10px; font-size:12px; cursor:pointer}
+    .img-modal[aria-hidden="false"]{animation:lightbox-in .35s ease both}
+    .img-backdrop{background:rgba(4,3,5,.78); backdrop-filter:blur(18px) saturate(65%); animation:backdrop-in .4s ease both}
+    @keyframes backdrop-in{from{opacity:0;backdrop-filter:blur(0)}to{opacity:1;backdrop-filter:blur(18px) saturate(65%)}}
+    @keyframes lightbox-in{from{opacity:0}to{opacity:1}}
+    .img-panel{position:relative; display:grid; place-items:center; width:calc(100vw - clamp(24px,4vw,64px)); height:calc(100vh - clamp(24px,4vw,64px)); max-width:none; max-height:none; margin:0; border:1px solid rgba(252,233,143,.28); border-radius:20px 5px 20px 5px; overflow:hidden; background:rgba(12,10,13,.92); box-shadow:0 35px 90px rgba(0,0,0,.72),8px 9px 0 rgba(105,98,108,.16); animation:panel-in .55s cubic-bezier(.16,1,.3,1) both;}
+    @keyframes panel-in{from{opacity:0;transform:translateY(18px) scale(.965);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+    .img-panel img{display:block; width:100%; height:100%; object-fit:contain; background:#0c0a0d}
+    .img-panel img.image-enter{animation:image-enter .38s cubic-bezier(.22,.8,.22,1) both}
+    @keyframes image-enter{from{opacity:0;transform:scale(.985);filter:blur(4px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+    .img-gallery-nav{position:absolute; top:14px; left:14px; right:68px; z-index:4; display:flex; gap:7px; padding:2px; overflow-x:auto; scrollbar-width:none; mask-image:linear-gradient(90deg,#000 94%,transparent);}
+    .img-gallery-nav::-webkit-scrollbar{display:none}
+    .img-gallery-nav:empty{display:none}
+    .img-gallery-tab{flex:0 0 auto; padding:8px 11px 7px; color:#d9ceda; background:rgba(15,12,16,.76); border:1px solid rgba(216,156,255,.28); border-radius:9px 2px 9px 2px; font:inherit; font-size:10px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; backdrop-filter:blur(12px); transition:color .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
+    .img-gallery-tab:hover{color:#FCE98F; border-color:rgba(252,233,143,.55); box-shadow:0 0 16px rgba(252,233,143,.15)}
+    .img-gallery-tab.is-active{color:#171318; background:#E8C65C; border-color:#E8C65C; box-shadow:0 0 18px rgba(232,198,92,.22)}
+    .img-close{position:absolute; top:16px; right:16px; z-index:3; display:grid; place-items:center; width:38px; height:38px; padding:0; background:rgba(15,12,16,.72); color:#FCE98F; border:1px solid rgba(252,233,143,.42); border-radius:50%; font-size:25px; line-height:1; cursor:pointer; backdrop-filter:blur(9px); transition:transform .2s ease,background .2s ease,color .2s ease}
+    .img-close:hover{transform:rotate(8deg) scale(1.06); background:#FCE98F; color:#171219}
+    .img-counter{position:absolute; left:18px; bottom:15px; z-index:3; padding:6px 9px 5px; color:#FCE98F; background:rgba(15,12,16,.72); border:1px solid rgba(252,233,143,.25); border-radius:8px 2px 8px 2px; font-size:11px; letter-spacing:.12em; backdrop-filter:blur(9px)}
     .img-nav{
       position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(0,0,0,.5); color:#fff; border:none;
-      width:56px; height:56px; border-radius:50%;
-      font-size:13px; font-weight:700; text-transform:lowercase;
+      background:rgba(15,12,16,.7); color:#FCE98F; border:1px solid rgba(252,233,143,.35);
+      width:52px; height:52px; border-radius:50%;
+      font-size:34px; font-weight:400;
       cursor:pointer; display:flex; align-items:center; justify-content:center;
       z-index:2; transition:background .2s, color .2s;
     }
-    .img-nav:hover{background:rgba(255,255,255,.3); color:var(--accent);}
-    .img-nav.prev{left:16px}
-    .img-nav.next{right:16px}
+    .img-nav:hover{background:#FCE98F; color:#171219; transform:translateY(-50%) scale(1.07)}
+    .img-nav.prev{left:18px}
+    .img-nav.next{right:18px}
 
     .hidden{display:none !important}
+    @media (max-width:900px){
+      .project-layout{grid-template-columns:1fr; gap:30px}
+      .project-visual{position:static; max-width:680px; width:100%; margin:0 auto}
+      .project-copy{max-width:760px; width:100%; margin:0 auto}
+      .card:nth-child(3n+2){transform:none}
+    }
     @media (max-width:640px){
       header{grid-template-columns:1fr; row-gap:8px;}
-      .brand img{height:46px}
+      .brand img{width:clamp(132px,38vw,155px); height:auto}
       .left-nav,.right-socials{justify-content:center}
-      .img-nav{width:48px;height:48px;font-size:12px;}
+      .img-nav{width:42px;height:42px;font-size:29px;}
+      .img-nav.prev{left:9px}.img-nav.next{right:9px}
+      .img-close{top:10px;right:10px;width:34px;height:34px;font-size:22px}
+      .grid{grid-template-columns:1fr; gap:18px}
+      .card:nth-child(3n+2),.card:hover,.card:nth-child(3n+2):hover{transform:none}
+      .see-more{opacity:1; transform:none; pointer-events:auto}
+      .project-layout{grid-template-columns:1fr; gap:26px}
+      .project-visual{position:static}
+      .news-heading{align-items:start; flex-direction:column; gap:7px}
+      .news-post{grid-template-columns:64px minmax(0,1fr); gap:15px; padding:17px}
+      .news-post::after{display:none}
+      .news-author{padding-right:0}
     }
+    @media (prefers-reduced-motion:reduce){body::before,body::after,.wrap::before,.brand img,:root.mode-switching .brand::after,::view-transition-old(root),::view-transition-new(root),.page-transition,.page-transition::before,main.page-enter{animation:none!important}#fogFX,#shimmerFX,#petalFX{display:none}body,.card,.tab,.btn,.icon,.left-nav a,h1,h2,h3,p,.meta,footer{transition-duration:.01ms}}
   </style>
 </head>
 <body data-theme="dark">
+  <div class="page-transition" id="page-transition" aria-hidden="true"></div>
   <canvas id="fogFX" aria-hidden="true"></canvas>
   <canvas id="shimmerFX" aria-hidden="true"></canvas>
+  <div id="petalFX" aria-hidden="true"></div>
 
   <div class="wrap">
     <header>
@@ -164,8 +375,9 @@
         <a id="nav-projects">projects</a>
         <a id="nav-news">news</a>
       </nav>
-      <div class="brand" id="logoEgg" role="button" tabindex="0" aria-label="play secret audio">
-        <img src="officialogo.png" alt="obviouslypurple logo">
+      <div class="brand" id="logoEgg" role="button" tabindex="0" aria-label="switch to black and white mode" aria-pressed="false">
+        <img src="2026logo@3x.png" alt="obviouslypurple logo">
+        <span class="brand-hint" aria-hidden="true">shift the mood</span>
       </div>
       <div class="right-socials">
         <a class="icon" href="https://x.com/obviouslypurple" target="_blank" aria-label="x">
@@ -174,32 +386,39 @@
         <a class="icon" href="https://www.roblox.com/users/341680229/profile" target="_blank" aria-label="roblox">
           <svg viewBox="0 0 100 100"><g transform="translate(50 50) rotate(20) translate(-50 -50)"><rect x="15" y="15" width="70" height="70" fill="currentColor"/><rect x="41" y="41" width="18" height="18" fill="var(--bg)"/></g></svg>
         </a>
+        <a class="icon" href="https://linktr.ee/obviouslypurple" target="_blank" rel="noopener noreferrer" aria-label="linktree">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.85 2h2.3v5.05l3.58-3.57 1.63 1.63-4.04 4.03h5.71v2.31h-5.72l4.05 4.04-1.63 1.63-3.58-3.57V22h-2.3v-8.45l-3.58 3.57-1.63-1.63 4.05-4.04H3.97V9.14h5.71L5.64 5.11l1.63-1.63 3.58 3.57V2Z" fill="currentColor"/></svg>
+        </a>
       </div>
     </header>
 
     <main id="page-home">
       <section class="hero">
         <div class="intro">
-          <h2>Creative Lead Artist at RoCitizens, on Roblox specializing in UI/UX, 3D Art, and Project Management.</h2>
-          <p>With nearly a decade of experience on the Roblox platform, I bring a comprehensive skill set to build, design, and manage engaging experiences from concept to launch.</p>
-          <button class="btn" onclick="window.open('https://x.com/obviouslypurple','_blank')">subscribe to my socials</button>
+          <h2>Hello, I’m <span class="intro-name">Purple</span>, a versatile Roblox developer focused on art direction, game design, and creative production.</h2>
+          <p>I work across environment design, UI, 3D art, branding, and project management, helping shape projects from early concepts into polished, playable experiences. My work sits between creative direction and hands-on development, whether I’m defining the visual identity of a game, designing its world and systems, or coordinating the bigger picture behind production.</p>
+          <button class="btn" onclick="window.open('https://linktr.ee/obviouslypurple','_blank','noopener,noreferrer')">subscribe to my socials</button>
         </div>
       </section>
 
       <section id="work">
-        <div class="tabs" role="tablist">
-          <button class="tab is-active" data-filter="all">all</button>
-          <button class="tab" data-filter="live">live experiences</button>
-          <button class="tab" data-filter="projects">projects</button>
-          <button class="tab" data-filter="showcases">showcases</button>
-        </div>
-
         <div class="grid">
+          <!-- ROCITIZENS -->
+          <article class="card" data-cat="live">
+            <div class="shot has-img" style="background-image:url('RC_Banner.png')">
+              <div class="labels">
+                <a class="see-more pink" href="#" data-project-id="rocitizens">see more</a>
+                <a class="see-more green" href="https://www.roblox.com/games/137877687/RoCitizens" target="_blank" rel="noopener noreferrer">play</a>
+              </div>
+            </div>
+            <div class="meta"><span>rocitizens</span><span>creative lead • art direction • production</span></div>
+          </article>
+
           <!-- COOKED -->
           <article class="card" data-cat="live">
             <div class="shot has-img" style="background-image:url('Cooked.png')">
               <div class="labels">
-                <a class="see-more pink" href="#" data-project-id="cooked">explore</a>
+                <a class="see-more pink" href="#" data-project-id="cooked">see more</a>
                 <a class="see-more green" href="https://www.roblox.com/games/108476688850509/Cooked" target="_blank">play</a>
               </div>
             </div>
@@ -210,7 +429,7 @@
           <article class="card" data-cat="live">
             <div class="shot has-img" style="background-image:url('CRFTBanner.png')">
               <div class="labels">
-                <a class="see-more pink" href="#" data-project-id="treasure">explore</a>
+                <a class="see-more pink" href="#" data-project-id="treasure">see more</a>
                 <a class="see-more green" href="https://www.roblox.com/games/18814515603/Treasure-Mine-Simulator" target="_blank">play</a>
               </div>
             </div>
@@ -221,7 +440,7 @@
           <article class="card" data-cat="live">
             <div class="shot has-img" style="background-image:url('WMGBanner.png')">
               <div class="labels">
-                <a class="see-more pink" href="#" data-project-id="wmg">explore</a>
+                <a class="see-more pink" href="#" data-project-id="wmg">see more</a>
               </div>
             </div>
             <div class="meta"><span>warner music group</span><span>environment artist • brand activations</span></div>
@@ -230,40 +449,44 @@
           <!-- THE VOYAGE -->
           <article class="card" data-cat="projects">
             <div class="shot has-img" style="background-image:url('TVBanner.png')">
-              <div class="labels"><a class="see-more pink" href="#" data-project-id="voyage">explore</a></div>
+              <div class="labels"><a class="see-more pink" href="#" data-project-id="voyage">see more</a></div>
             </div>
             <div class="meta"><span>the voyage</span><span>environment • studio build</span></div>
           </article>
 
-          <!-- SHOWCASES -->
-          <article class="card" data-cat="showcases">
-            <div class="shot has-img" style="background-image:url('ShowcasesBanner.png')">
-              <div class="labels">
-                <a class="see-more pink" href="#" data-project-id="showcases">explore</a>
-              </div>
-            </div>
-            <div class="meta"><span>showcases</span><span>personal • passion • experiments</span></div>
-          </article>
+          <!-- INDIVIDUAL SHOWCASES -->
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('MH_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-modern-house">see more</a></div></div><div class="meta"><span>modern house</span><span>rough showcase • 3 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('PR_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-robot">see more</a></div></div><div class="meta"><span>project robot</span><span>environment study • 13 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('SB_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-spirit">see more</a></div></div><div class="meta"><span>spirit busters</span><span>environment showcase • 6 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('SYF_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-favourite">see more</a></div></div><div class="meta"><span>save your favourite</span><span>visual concept • 4 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('HS_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-halloween">see more</a></div></div><div class="meta"><span>halloween 2021</span><span>environment showcase • 4 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('WS_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-willow">see more</a></div></div><div class="meta"><span>willow showcase</span><span>environment study • 4 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('TU_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-unknown">see more</a></div></div><div class="meta"><span>the unknown</span><span>atmosphere study • 3 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('MC_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-mars">see more</a></div></div><div class="meta"><span>mars cart</span><span>environment experiment • 3 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('MS_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-mountain">see more</a></div></div><div class="meta"><span>mountain atmosphere</span><span>lighting experiment • 5 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('PH_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-powerhouse">see more</a></div></div><div class="meta"><span>powerhouse</span><span>sketch recreation • 4 images</span></div></article>
+          <article class="card" data-cat="showcases"><div class="shot has-img" style="background-image:url('RSB_Image1.png')"><div class="labels"><a class="see-more pink" href="#" data-project-id="showcase-studio-builds">see more</a></div></div><div class="meta"><span>studio builds</span><span>selected hourly work • 10 images</span></div></article>
         </div>
 
-        <div style="margin-top:18px; text-align:center">
-          <a class="btn" href="#work" id="view-all">view all projects</a>
-        </div>
       </section>
     </main>
 
     <main id="page-project-detail" class="hidden">
-      <div style="margin:20px 0">
+      <div class="project-back">
         <button class="btn" id="back-to-home-btn">back to projects</button>
       </div>
-      <div style="display:grid; grid-template-columns:400px 1fr; gap:24px; align-items:start">
-        <div>
-          <img id="project-detail-img" src="" alt="" style="width:100%; border-radius:10px">
-          <div id="gallery-buttons" style="margin-top:12px; display:flex; flex-direction:column; gap:8px;"></div>
+      <div class="project-layout">
+        <div class="project-visual">
+          <div class="project-cover-frame"><img id="project-detail-img" src="" alt=""></div>
+          <div class="gallery-block">
+            <div class="gallery-block-title">visual archive</div>
+            <div id="gallery-buttons"></div>
+          </div>
         </div>
-        <div>
-          <h2 id="project-detail-title" style="display:flex; align-items:center; gap:12px; margin:0 0 16px; font-size:24px">
-            <a id="project-game-link" href="#" target="_blank" class="hidden" style="color:var(--muted)">
+        <div class="project-copy">
+          <div class="project-kicker">project profile</div>
+          <h2 id="project-detail-title">
+            <a id="project-game-link" href="#" target="_blank" class="hidden" aria-label="open project on roblox">
               <svg viewBox="0 0 100 100" style="width:24px;height:24px"><g transform="translate(50 50) rotate(20) translate(-50 -50)"><rect x="15" y="15" width="70" height="70" fill="currentColor"/><rect x="41" y="41" width="18" height="18" fill="var(--bg)"/></g></svg>
             </a>
             <span id="project-title-text"></span>
@@ -275,12 +498,12 @@
     </main>
 
     <main id="page-news" class="hidden">
-      <h2>News & Updates</h2>
+      <div class="news-heading"><h2>News &amp; Updates</h2><span>notes from the studio</span></div>
       <div id="news-container"></div>
     </main>
 
     <footer>
-      <div>contact me:</div>
+      <div class="footer-contact">contact me:</div>
       <div class="footer-discord">discord: @obviouslypurple</div>
       <div class="footer-socials">
         <a class="icon" href="https://x.com/obviouslypurple" target="_blank">
@@ -289,8 +512,14 @@
         <a class="icon" href="https://www.roblox.com/users/341680229/profile" target="_blank">
           <svg viewBox="0 0 100 100"><g transform="translate(50 50) rotate(20) translate(-50 -50)"><rect x="15" y="15" width="70" height="70" fill="currentColor"/><rect x="41" y="41" width="18" height="18" fill="var(--bg)"/></g></svg>
         </a>
+        <a class="icon" href="https://linktr.ee/obviouslypurple" target="_blank" rel="noopener noreferrer" aria-label="linktree">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.85 2h2.3v5.05l3.58-3.57 1.63 1.63-4.04 4.03h5.71v2.31h-5.72l4.05 4.04-1.63 1.63-3.58-3.57V22h-2.3v-8.45l-3.58 3.57-1.63-1.63 4.05-4.04H3.97V9.14h5.71L5.64 5.11l1.63-1.63 3.58 3.57V2Z" fill="currentColor"/></svg>
+        </a>
+        <a class="icon" href="https://discord.gg/fuKRgD8T85" target="_blank" rel="noopener noreferrer" aria-label="discord">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.34A16.4 16.4 0 0 0 15.44 4l-.5 1.02a15.2 15.2 0 0 0-5.86 0L8.56 4a16.7 16.7 0 0 0-4.1 1.35C1.87 9.2 1.17 12.96 1.52 16.67a16.5 16.5 0 0 0 5.03 2.55l1.23-1.68a10.6 10.6 0 0 1-1.94-.94l.48-.37c3.74 1.72 7.8 1.72 11.5 0l.49.37c-.63.37-1.28.68-1.95.94l1.23 1.68a16.4 16.4 0 0 0 5.02-2.55c.42-4.3-.72-8.02-3.07-11.33ZM8.52 14.4c-1.12 0-2.04-1.03-2.04-2.3s.9-2.3 2.04-2.3c1.15 0 2.06 1.04 2.04 2.3 0 1.27-.9 2.3-2.04 2.3Zm6.97 0c-1.12 0-2.04-1.03-2.04-2.3s.9-2.3 2.04-2.3c1.15 0 2.06 1.04 2.04 2.3 0 1.27-.89 2.3-2.04 2.3Z" fill="currentColor"/></svg>
+        </a>
       </div>
-      <p style="margin-top:10px">© 2025 team op • <a href="#" id="open-changelog" style="color:var(--muted); text-decoration:underline">change logs</a></p>
+      <p class="footer-meta" style="margin-top:10px">© 2025 team op • <a href="#" id="open-changelog" style="text-decoration:underline">change logs</a></p>
     </footer>
   </div>
 
@@ -298,10 +527,12 @@
   <div id="imgModal" class="img-modal" aria-hidden="true">
     <div class="img-backdrop" data-close></div>
     <figure class="img-panel">
-      <button class="img-close" data-close>Close</button>
-      <button class="img-nav prev" aria-label="Previous image">back</button>
-      <button class="img-nav next" aria-label="Next image">next</button>
+      <button class="img-close" data-close aria-label="close gallery">×</button>
+      <nav class="img-gallery-nav" id="img-gallery-nav" aria-label="Gallery categories"></nav>
+      <button class="img-nav prev" aria-label="previous image">‹</button>
+      <button class="img-nav next" aria-label="next image">›</button>
       <img id="imgModalImg" src="" alt="">
+      <figcaption class="img-counter" id="img-counter"></figcaption>
     </figure>
   </div>
 
@@ -329,37 +560,60 @@
       </header>
       <div class="changelog-content" id="changelog-content">
         <div class="changelog-item">
-          <time>October 31, 2025</time>
-          <p>Fixed galaxy easter egg background — now shows deep space + nebula</p>
-          <p>Restored easter egg shimmer + fog color sync</p>
-        </div>
-        <div class="changelog-item">
-          <time>October 31, 2025</time>
-          <p>Updated The Voyage banner → <code>TVBanner.png</code></p>
-        </div>
-        <div class="changelog-item">
-          <time>October 31, 2025</time>
-          <p>Added full The Voyage project:</p>
+          <time>September 4, 2026</time>
+          <h4>2026 portfolio redesign</h4>
           <ul>
-            <li>3 galleries: 2022 (41), V2 (12), V1 (8)</li>
-            <li>Professional description + 4 key achievements</li>
-            <li>Deep blue theme</li>
+            <li>Introduced the new 2026 logo and refined its responsive sizing.</li>
+            <li>Added the animated purple, charcoal, and black background with subtle vintage grain.</li>
+            <li>Updated the site typography to STIX Two Text and refreshed the portfolio introduction.</li>
+            <li>Redesigned project cards and project profiles with vintage editorial styling, improved descriptions, and a new visual archive.</li>
+            <li>Separated the original Showcases collection into eleven standalone project cards and profiles.</li>
+            <li>Added a blue-and-yellow RoCitizens project profile and seven complete visual archives spanning seasonal updates, lighting, the spawn revamp, furniture, and the unreleased bank building.</li>
+            <li>Introduced responsive fullscreen galleries with blurred backdrops, keyboard controls, smooth image transitions, and category switching for projects with multiple galleries.</li>
+            <li>Added the logo-controlled black-and-white mode with a smooth radial transition while keeping project imagery in color.</li>
+            <li>Added subtle monochrome petals and the stay.mp3 audio cue to black-and-white mode.</li>
+            <li>Added Panamericana Uno typography to monochrome navigation and refined its spacing for oversized letterforms.</li>
+            <li>Added Linktree to the main social action, header, and footer.</li>
+            <li>Added the team Discord invitation to the footer social links.</li>
+            <li>Added team announcements with the updated Team OP logo and publishing format.</li>
+            <li>Refreshed the back-to-projects control and improved monochrome styling across description and social elements.</li>
+            <li>Refined navigation, social-icon, and footer colors around the lavender and warm-yellow palette.</li>
           </ul>
         </div>
         <div class="changelog-item">
           <time>October 31, 2025</time>
-          <p>Added Minecart Value (demo) gallery to Cart Ride For Treasure (4 images)</p>
+          <h4>project archive expansion</h4>
+          <ul>
+            <li>Added the complete The Voyage project with 2022, V2, and V1 galleries.</li>
+            <li>Expanded The Voyage with a professional overview, key achievements, and a deep-blue project theme.</li>
+            <li>Added the Minecart Value demo gallery to Cart Ride for Treasure.</li>
+            <li>Updated The Voyage banner artwork.</li>
+            <li>Removed the Graphic Design and Other Engagements categories.</li>
+            <li>Improved the Cooked! gallery-button layout.</li>
+          </ul>
         </div>
         <div class="changelog-item">
           <time>October 31, 2025</time>
-          <p>Removed Graphic Design & Other Engagements tabs</p>
-          <p>Fixed Cooked! gallery button stacking — now clean and full-width</p>
+          <h4>background and easter-egg fixes</h4>
+          <ul>
+            <li>Repaired the original galaxy easter-egg background.</li>
+            <li>Restored shimmer effects and synchronized the animated fog colors.</li>
+          </ul>
+        </div>
+        <div class="changelog-item">
+          <time>September 13, 2025</time>
+          <h4>the portfolio goes live</h4>
+          <ul>
+            <li>Launched the first version of the obviouslypurple portfolio.</li>
+            <li>Introduced project filtering, expandable galleries, image lightboxes, social links, and project detail pages.</li>
+            <li>Published the initial Cooked!, Cart Ride for Treasure, Warner Music Group, The Voyage, and Showcases collections.</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <audio id="egg-audio" src="logoeasteregg.mp3" preload="none"></audio>
+  <audio id="mode-audio" src="stay.mp3" preload="auto"></audio>
 
   <script>
     // --- IIFEs ---
@@ -380,7 +634,7 @@
           :t==='showcases'?['rgba(139,92,246,.16)','rgba(139,92,246,0)']
           :t==='wmg'?['rgba(30,144,255,.16)','rgba(30,144,255,0)']
           :t==='voyage'?['rgba(0,191,255,.16)','rgba(0,191,255,0)']
-          :['rgba(255,190,220,.16)','rgba(255,190,220,0)'];
+          :['rgba(105,98,108,.24)','rgba(36,27,39,0)'];
       }
       function seed(){blobs=[];const n=Math.min(22,Math.max(10,Math.round((W*H)/300000)));for(let i=0;i<n;i++){const r=160+Math.random()*320;const a=Math.random()*Math.PI*2;const s=0.004+Math.random()*0.002;blobs.push({x:Math.random()*W,y:Math.random()*H,r,vx:Math.cos(a)*s,vy:Math.sin(a)*s});}}
       function resize(){W=innerWidth;H=innerHeight;cvs.style.width=W+'px';cvs.style.height=H+'px';cvs.width=Math.ceil(W/SCALE)*DPR;cvs.height=Math.ceil(H/SCALE)*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);seed();}
@@ -395,13 +649,33 @@
       const navHome=document.getElementById('nav-home'),navProj=document.getElementById('nav-projects'),navNews=document.getElementById('nav-news');
       const backBtn=document.getElementById('back-to-home-btn');
       const changelogModal=document.getElementById('changelog-modal');
+      let pageTransition=document.getElementById('page-transition');
+      let pageTransitionTimer;
 
-      function showPage(p,theme=''){Object.values(pages).forEach(pg=>pg.classList.add('hidden'));p.classList.remove('hidden');document.body.dataset.activeTheme=theme;window.scrollTo(0,0);}
+      function showPage(p,theme=''){
+        Object.values(pages).forEach(pg=>{pg.classList.add('hidden');pg.classList.remove('page-enter');});
+        p.classList.remove('hidden');
+        document.body.dataset.activeTheme=theme;
+        window.scrollTo(0,0);
+        void p.offsetWidth;
+        p.classList.add('page-enter');
+        const freshTransition=pageTransition.cloneNode(false);
+        pageTransition.replaceWith(freshTransition);
+        pageTransition=freshTransition;
+        pageTransition.classList.add('is-moving');
+        clearTimeout(pageTransitionTimer);
+        const runningTransition=pageTransition;
+        pageTransitionTimer=setTimeout(()=>runningTransition.classList.remove('is-moving'),760);
+      }
 
       navHome.onclick=e=>{e.preventDefault();showPage(pages.home);};
       navProj.onclick=e=>{e.preventDefault();showPage(pages.home);document.getElementById('work').scrollIntoView({behavior:'smooth'});};
       navNews.onclick=e=>{e.preventDefault();renderNews();showPage(pages.news);};
-      backBtn.onclick=e=>{e.preventDefault();showPage(pages.home);};
+      backBtn.onclick=e=>{
+        e.preventDefault();
+        showPage(pages.home);
+        window.setTimeout(()=>document.getElementById('work').scrollIntoView({block:'start'}),40);
+      };
 
       // Changelog Modal
       document.getElementById('open-changelog').onclick=e=>{
@@ -421,15 +695,7 @@
           imageSrc:'Cooked.png',
           gameUrl:'https://www.roblox.com/games/108476688850509/Cooked',
           theme:'cooked',
-          description:`<p>As the <strong>Creative Lead Artist</strong> for <em>Cooked!</em> (BloxByte Games), I drive the <strong>aesthetic strategy and technical execution</strong> for this popular chaos-cooking game (<strong>2.1M+ visits</strong>), ensuring visual quality and performance for the player base.</p>
-<h3>Key Achievements</h3>
-<ul>
-  <li><strong>Led the design of all core game environments</strong>, focusing on visual storytelling and atmospheric lighting to maximize player immersion.</li>
-  <li><strong>Drove the communication pipeline</strong> with design and engineering leads to ensure all art assets supported core gameplay loops.</li>
-  <li><strong>Specialized in creating unique, stylized UI elements</strong> that provided clear information while maintaining the chaotic theme of the game.</li>
-  <li><strong>Defined and implemented a streamlined PBR texturing workflow</strong> to maximize visual fidelity while adhering to strict performance budgets.</li>
-  <li><strong>Initiated and independently managed the social media marketing strategy</strong>, driving initial audience growth and ensuring all promotional visual assets aligned with the game's aesthetic and core branding.</li>
-</ul>`,
+          description:`<p>Serve as <strong>Creative Lead</strong> on <em>Cooked!</em>, overseeing visual direction, UI/UX, 3D asset production, environments, and social media. I helped establish the game’s visual identity and create a cohesive player experience across both gameplay and marketing.</p>`,
           galleryImages:Array.from({length:40},(_,i)=>`CO_Image${i+1}.png`),
           fallGalleryImages:Array.from({length:8},(_,i)=>`COFall_Image${i+1}.png`),
           uiGalleryImages:Array.from({length:11},(_,i)=>`COUI_Image${i+1}.png`)
@@ -439,13 +705,7 @@
           imageSrc:'CRFTBanner.png',
           gameUrl:'https://www.roblox.com/games/18814515603/Treasure-Mine-Simulator',
           theme:'treasure',
-          description:`<p>Served as <strong>Co-Founder & Lead Artist</strong> for the independent project, <em>Cart Ride For Treasure</em>. This role involved <strong>full creative and technical ownership</strong> over the game's visual identity, environment design, and core asset creation. The project demonstrated my commitment to competitive design and ability to adapt quickly to development challenges.</p>
-<h3>Key Achievements</h3>
-<ul>
-  <li><strong>Secured high-profile testing and design feedback</strong> from industry leaders <strong>Asimo3089</strong> and <strong>Badcc</strong> (Jailbreak), validating design choices early in the cycle.</li>
-  <li><strong>Executed all environment creation and lighting design</strong>, ensuring atmospheric quality and performance efficiency for the initial soft launch.</li>
-  <li><strong>Managed the full development lifecycle</strong> from concept to soft launch, demonstrating expertise in project management and resilience in pivoting away from the project due to unforeseen challenges.</li>
-</ul>`,
+          description:`<p>Co-founded and led the visual development of <em>Cart Ride for Treasure</em>, handling environment design, 3D assets, UI, and social media. Focused on creating a playful, easy-to-understand experience with a strong visual identity.</p>`,
           galleryImages:Array.from({length:38},(_,i)=>`CR_Image${i+1}.png`),
           uiGalleryImages:Array.from({length:14},(_,i)=>`CRUI_Image${i+1}.png`),
           minecartGalleryImages:Array.from({length:4},(_,i)=>`MV_Image${i+1}.png`)
@@ -454,27 +714,30 @@
           title:'Warner Music Group',
           imageSrc:'WMGBanner.png',
           theme:'wmg',
-          description:`<p>Served as a core <strong>Environment Artist</strong> for high-profile brand activations, focusing on translating external celebrity and WMG brand identities into high-fidelity, performant Roblox experiences.</p>
-<h3>Key Achievements</h3>
-<ul>
-  <li><strong>Executed the visual integration</strong> for multiple WMG partnership events, ensuring each celebrity’s brand identity was accurately represented in the virtual environment.</li>
-  <li><strong>Developed optimized assets and environments</strong> for the events that generated massive player reach, demonstrating mastery of the live event asset pipeline.</li>
-  <li><strong>Worked closely with engineering leads</strong> to ensure all custom-modeled partnership items were fully functional and performant within the live game environment.</li>
-</ul>`,
+          description:`<p>Contributed to several Warner Music Group activations within RoCitizens, including virtual concerts and promotional events for artists such as Charli XCX, Ava Max, David Guetta, and Tiësto. Helped create environments and visual content supporting these in-game events.</p>`,
           galleryImages:Array.from({length:26},(_,i)=>`WMG_Image${i+1}.png`)
+        },
+        rocitizens:{
+          title:'RoCitizens',
+          imageSrc:'RC_Banner.png',
+          gameUrl:'https://www.roblox.com/games/137877687/RoCitizens',
+          theme:'rocitizens',
+          description:`<p>Worked as an <strong>environment artist</strong> for <em>RoCitizens</em>, contributing to the game’s overall visual direction and player experience. My role includes 3D environment design, asset creation, update concepts, branding, marketing, and community engagement. I’ve helped shape several major game updates and continue to support the long-term development of the experience.</p>`,
+          galleries:[
+            {name:'Christmas Update', prefix:'RC_ChristmasUpd', count:16, direct:true},
+            {name:'Lighting Update 2026', prefix:'RC_LightingUpd', count:3, direct:true},
+            {name:'Easter Update 2026', prefix:'RC_EasterUpd', count:7, direct:true},
+            {name:'Revamped Spawn Update 2026', prefix:'RC_SpawnUpd', count:17, direct:true},
+            {name:'Summer Update 2026', prefix:'RC_SummerUpd', count:10, direct:true},
+            {name:'Midcentury Modern Update 2026', prefix:'RC_McmUpd', count:26, direct:true},
+            {name:'Unreleased Bank Building', prefix:'RC_BankUpd', count:15, direct:true}
+          ]
         },
         voyage:{
           title:'The Voyage',
           imageSrc:'TVBanner.png',
           theme:'voyage',
-          description:`<p><strong>The Voyage</strong> was my foundational, long-term independent development project that served as a catalyst for my professional career. The project was primarily focused on mastering high-fidelity asset creation and building community, culminating in unique validation from the Roblox ecosystem.</p>
-<h3>Key Achievements</h3>
-<ul>
-  <li><strong>Publicly recognized and showcased at RDC (Roblox Developer Conference)</strong>, providing direct insight into the platform's future and networking with top-tier developers.</li>
-  <li><strong>Established a significant name within the Roblox Twitter Community (DevRel)</strong> through consistent promotion and high-quality build showcases, building a reputation of trust and creative excellence.</li>
-  <li><strong>Contributed to official Roblox Blogs and community discussions</strong>, positioning the project as a key example of high-fidelity environmental storytelling.</li>
-  <li><strong>Served as a full-cycle creator and art director</strong> for the project, handling all 3D modeling, environment design, and in-engine lighting systems from 2020 to 2022.</li>
-</ul>`,
+          description:`<p>An original exploration game where players journey across a massive ocean filled with islands, hidden locations, and places to discover. The project focused on atmosphere, exploration, and environmental storytelling within a large open world.</p>`,
           galleries:[
             {name:'The Voyage (2022)', prefix:'TV022', count:41},
             {name:'The Voyage (V2)', prefix:'TV03', count:12},
@@ -485,7 +748,7 @@
           title:'Showcases',
           imageSrc:'ShowcasesBanner.png',
           theme:'showcases',
-          description:`<p>A gallery of personal passion projects and technical skill demos. Explore unique environments and visual storytelling where I experiment with new styles.</p>`,
+          description:`<p>A collection of environment design experiments, builds, and creative studies made over the years. These projects explore different styles, themes, and ideas while developing my skills in 3D art and world building.</p>`,
           galleries:[
             {name:'Halloween 2021 Showcase', prefix:'HS', count:4},
             {name:'Mars Cart Short Environment Experiment', prefix:'MC', count:3},
@@ -502,6 +765,29 @@
         }
       };
 
+      const showcaseProjects=[
+        ['showcase-halloween','Halloween 2021 Showcase','HS',4,'A seasonal environment study built around theatrical lighting, stylized set dressing, and a playful haunted atmosphere.'],
+        ['showcase-mars','Mars Cart','MC',3,'A compact cart-focused environment experiment exploring scale, silhouettes, and an otherworldly industrial mood.'],
+        ['showcase-modern-house','Modern House','MH',3,'An architectural rough study focused on clean spatial composition, contemporary forms, and readable interior-exterior flow.'],
+        ['showcase-mountain','Mountain Atmosphere','MS',5,'An atmospheric landscape experiment studying distance, lighting, terrain composition, and environmental mood.'],
+        ['showcase-powerhouse','Powerhouse Sketch Recreation','PH',4,'A three-dimensional interpretation of an existing sketch, translating graphic shapes into a readable built environment.'],
+        ['showcase-studio-builds','Selected Studio Builds','RSB',10,'A collection of rapid studio builds made to explore ideas quickly while maintaining a strong visual read.'],
+        ['showcase-robot','Project Robot','PR',13,'A longer-form environment and asset study developed around a distinctive robotic visual identity.'],
+        ['showcase-favourite','Save Your Favourite','SYF',4,'A compact visual concept exploring presentation, color, and playful environmental storytelling.'],
+        ['showcase-spirit','Spirit Busters','SB',6,'A stylized supernatural environment study balancing atmosphere, readability, and characterful world design.'],
+        ['showcase-unknown','The Unknown','TU',3,'A short mood study using lighting, ambiguity, and environmental composition to create a sense of discovery.'],
+        ['showcase-willow','Willow Showcase','WS',4,'An environment study centered on natural forms, soft atmosphere, and a calm sense of place.']
+      ];
+      showcaseProjects.forEach(([id,title,prefix,count,summary])=>{
+        projectData[id]={
+          title,
+          imageSrc:`${prefix}_Image1.png`,
+          theme:'showcases',
+          description:`<p>A collection of environment design experiments, builds, and creative studies made over the years. These projects explore different styles, themes, and ideas while developing my skills in 3D art and world building.</p>`,
+          galleryImages:Array.from({length:count},(_,i)=>`${prefix}_Image${i+1}.png`)
+        };
+      });
+
       // Project Detail Logic (unchanged)
       const pdImg=document.getElementById('project-detail-img');
       const pdTitle=document.getElementById('project-title-text');
@@ -509,12 +795,19 @@
       const pdMarketing=document.getElementById('project-detail-marketing');
       const pdLink=document.getElementById('project-game-link');
       const galleryButtonsContainer=document.getElementById('gallery-buttons');
+      let activeProjectGalleries=[];
 
       document.querySelectorAll('.see-more[data-project-id]').forEach(b=>{
         b.onclick=e=>{
           e.preventDefault();
           const id=b.dataset.projectId;
           const d=projectData[id];
+          activeProjectGalleries=d.galleries||[
+            d.galleryImages?.length&&{name:'Main Gallery',images:d.galleryImages},
+            d.fallGalleryImages?.length&&{name:'Fall Map Gallery',images:d.fallGalleryImages},
+            d.uiGalleryImages?.length&&{name:'UI Design Gallery',images:d.uiGalleryImages},
+            d.minecartGalleryImages?.length&&{name:'Minecart Value Demo',images:d.minecartGalleryImages}
+          ].filter(Boolean);
           pdTitle.textContent=d.title;
           pdImg.src=d.imageSrc;
           pdDesc.innerHTML=d.description;
@@ -523,75 +816,75 @@
 
           galleryButtonsContainer.innerHTML='';
 
-          if ((id === 'showcases' || id === 'voyage') && d.galleries) {
+          if (d.galleries) {
             d.galleries.forEach(gal=>{
               const btn=document.createElement('button');
-              btn.className='btn';
-              btn.style.cssText='width:100%; margin:0;';
-              btn.textContent=`open ${gal.name.toLowerCase()}`;
+              btn.className='gallery-link';
+              btn.textContent=gal.count?`${gal.name.toLowerCase()} · ${gal.count} images`:`${gal.name.toLowerCase()} · awaiting images`;
               btn.dataset.galleryPrefix=gal.prefix;
               btn.dataset.galleryCount=gal.count;
               btn.dataset.galleryName=gal.name;
-              btn.onclick=()=>{openShowcaseGallery(gal);};
+              if(gal.count){btn.onclick=()=>{openShowcaseGallery(gal);};}
+              else{btn.disabled=true;}
               galleryButtonsContainer.appendChild(btn);
             });
           } else {
             // Standard gallery logic (unchanged)
             const galleryBtn=document.createElement('button');
-            galleryBtn.className='btn hidden';
+            galleryBtn.className='gallery-link hidden';
             galleryBtn.id='gallery-btn';
             galleryButtonsContainer.appendChild(galleryBtn);
 
             const fallGalleryBtn=document.createElement('button');
-            fallGalleryBtn.className='btn hidden';
+            fallGalleryBtn.className='gallery-link hidden';
             fallGalleryBtn.id='fall-gallery-btn';
             galleryButtonsContainer.appendChild(fallGalleryBtn);
 
             const uiGalleryBtn=document.createElement('button');
-            uiGalleryBtn.className='btn hidden';
+            uiGalleryBtn.className='gallery-link hidden';
             uiGalleryBtn.id='ui-gallery-btn';
             galleryButtonsContainer.appendChild(uiGalleryBtn);
 
             const treasureUiGalleryBtn=document.createElement('button');
-            treasureUiGalleryBtn.className='btn hidden';
+            treasureUiGalleryBtn.className='gallery-link hidden';
             treasureUiGalleryBtn.id='treasure-ui-gallery-btn';
             galleryButtonsContainer.appendChild(treasureUiGalleryBtn);
 
             const minecartGalleryBtn=document.createElement('button');
-            minecartGalleryBtn.className='btn hidden';
+            minecartGalleryBtn.className='gallery-link hidden';
             minecartGalleryBtn.id='minecart-gallery-btn';
             galleryButtonsContainer.appendChild(minecartGalleryBtn);
 
             if (d.galleryImages?.length) {
-              galleryBtn.textContent=`open ${d.title.toLowerCase()}'s gallery`;
+              galleryBtn.textContent=`main gallery · ${d.galleryImages.length} images`;
               galleryBtn.dataset.projectId=id;
               galleryBtn.dataset.galleryType='main';
               galleryBtn.classList.remove('hidden');
             }
 
             if (id === 'cooked' && d.fallGalleryImages?.length) {
-              fallGalleryBtn.textContent=`open cooked!'s fall map gallery`;
+              fallGalleryBtn.textContent=`fall map gallery · ${d.fallGalleryImages.length} images`;
               fallGalleryBtn.dataset.projectId=id;
               fallGalleryBtn.dataset.galleryType='fall';
               fallGalleryBtn.classList.remove('hidden');
             }
 
             if (id === 'cooked' && d.uiGalleryImages?.length) {
-              uiGalleryBtn.textContent=`open cooked!'s ui gallery`;
+              uiGalleryBtn.textContent=`ui design gallery · ${d.uiGalleryImages.length} images`;
               uiGalleryBtn.dataset.projectId=id;
               uiGalleryBtn.dataset.galleryType='ui';
               uiGalleryBtn.classList.remove('hidden');
             }
 
             if (id === 'treasure' && d.uiGalleryImages?.length) {
-              treasureUiGalleryBtn.textContent=`open cart ride for treasure's ui gallery`;
+              treasureUiGalleryBtn.textContent=`ui design gallery · ${d.uiGalleryImages.length} images`;
               treasureUiGalleryBtn.dataset.projectId=id;
               treasureUiGalleryBtn.dataset.galleryType='ui';
               treasureUiGalleryBtn.classList.remove('hidden');
             }
 
             if (id === 'treasure' && d.minecartGalleryImages?.length) {
-              minecartGalleryBtn.textContent=`open minecart value (demo)`;
+              minecartGalleryBtn.textContent=`minecart value demo · ${d.minecartGalleryImages.length} images`;
               minecartGalleryBtn.dataset.projectId=id;
               minecartGalleryBtn.dataset.galleryType='minecart';
               minecartGalleryBtn.classList.remove('hidden');
@@ -603,20 +896,8 @@
       });
 
       function openShowcaseGallery(gal){
-        const images = Array.from({length:gal.count},(_,i)=>`${gal.prefix}_Image${i+1}.png`);
-        const gModal=document.getElementById('gallery-modal');
-        const gGrid=document.getElementById('gallery-grid');
-        const gTitle=document.getElementById('gallery-title');
-        gTitle.textContent=gal.name;
-        gGrid.innerHTML='';
-        images.forEach((src,i)=>{
-          const div=document.createElement('div');div.className='gallery-item';
-          const img=document.createElement('img');img.src=src;img.alt=`${i+1}`;
-          img.onclick=()=>{openLB(images,i);gModal.setAttribute('aria-hidden','true');};
-          div.appendChild(img);gGrid.appendChild(div);
-        });
-        gModal.setAttribute('aria-hidden','false');
-        document.body.style.overflow='hidden';
+        const images = gal.images||Array.from({length:gal.count},(_,i)=>`${gal.prefix}${gal.direct?'':'_Image'}${i+1}.png`);
+        openLB(images,0,gal.name);
       }
 
       const gModal=document.getElementById('gallery-modal');
@@ -626,18 +907,45 @@
       const lbImg=document.getElementById('imgModalImg');
       const lbPrev=document.querySelector('.img-nav.prev');
       const lbNext=document.querySelector('.img-nav.next');
-      let lbImages=[], lbIdx=0;
+      const lbCounter=document.getElementById('img-counter');
+      const lbGalleryNav=document.getElementById('img-gallery-nav');
+      let lbImages=[], lbIdx=0, lbTitle='gallery';
 
-      function openLB(imgs,idx){
-        lbImages=imgs; lbIdx=idx; lbImg.src=lbImages[lbIdx];
-        lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow='hidden';
+      function renderGalleryNav(){
+        lbGalleryNav.innerHTML='';
+        const availableGalleries=activeProjectGalleries.filter(gal=>gal.count||gal.images?.length);
+        if(availableGalleries.length<2)return;
+        availableGalleries.forEach(gal=>{
+          const tab=document.createElement('button');
+          tab.className=`img-gallery-tab${gal.name===lbTitle?' is-active':''}`;
+          tab.type='button';
+          tab.textContent=gal.name;
+          tab.setAttribute('aria-pressed',gal.name===lbTitle?'true':'false');
+          tab.onclick=()=>openShowcaseGallery(gal);
+          lbGalleryNav.appendChild(tab);
+        });
+        lbGalleryNav.querySelector('.is-active')?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      }
+
+      function showLightboxImage(){
+        lbImg.classList.remove('image-enter');
+        void lbImg.offsetWidth;
+        lbImg.src=lbImages[lbIdx];
+        lbImg.alt=`${lbTitle}, image ${lbIdx+1} of ${lbImages.length}`;
+        lbImg.classList.add('image-enter');
         updateLB();
       }
+      function openLB(imgs,idx,title='gallery'){
+        lbImages=imgs; lbIdx=idx; lbTitle=title;
+        renderGalleryNav();
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+        showLightboxImage();
+      }
       function closeLB(){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-      function updateLB(){lbPrev.style.display=lbIdx>0?'flex':'none';lbNext.style.display=lbIdx<lbImages.length-1?'flex':'none';}
-      function goPrev(){if(lbIdx>0){lbIdx--;lbImg.src=lbImages[lbIdx];updateLB();}}
-      function goNext(){if(lbIdx<lbImages.length-1){lbIdx++;lbImg.src=lbImages[lbIdx];updateLB();}}
+      function updateLB(){lbPrev.style.display=lbIdx>0?'flex':'none';lbNext.style.display=lbIdx<lbImages.length-1?'flex':'none';lbCounter.textContent=`${String(lbIdx+1).padStart(2,'0')} / ${String(lbImages.length).padStart(2,'0')}`;}
+      function goPrev(){if(lbIdx>0){lbIdx--;showLightboxImage();}}
+      function goNext(){if(lbIdx<lbImages.length-1){lbIdx++;showLightboxImage();}}
       lbPrev.onclick=goPrev; lbNext.onclick=goNext;
       lb.querySelectorAll('[data-close]').forEach(el=>el.onclick=closeLB);
       document.addEventListener('keydown',e=>{
@@ -661,16 +969,8 @@
           else if (type === 'minecart') { images = d.minecartGalleryImages; title = "Minecart Value (demo)"; }
           else { images = d.galleryImages; title = `${d.title} Gallery`; }
 
-          gTitle.textContent=title;
-          gGrid.innerHTML='';
-          images.forEach((src,i)=>{
-            const div=document.createElement('div');div.className='gallery-item';
-            const img=document.createElement('img');img.src=src;img.alt=`${i+1}`;
-            img.onclick=()=>{openLB(images,i);gModal.setAttribute('aria-hidden','true');};
-            div.appendChild(img);gGrid.appendChild(div);
-          });
-          gModal.setAttribute('aria-hidden','false');
-          document.body.style.overflow='hidden';
+          const matchingGallery=activeProjectGalleries.find(gal=>gal.images===images);
+          openLB(images,0,matchingGallery?.name||title);
         }
       });
 
@@ -685,28 +985,53 @@
       tabs.forEach(t=>t.onclick=()=>filter(t.dataset.filter));
       filter('all');
 
-      // Logo Easter Egg - FIXED
+      // Logo monochrome mode toggle
       const logo=document.getElementById('logoEgg');
-      const audio=document.getElementById('egg-audio');
-      audio.volume=0.6;
-      let isPlaying = false;
-      logo.onclick=()=>{
-        if (isPlaying) {
-          audio.pause(); audio.currentTime = 0;
+      const modeAudio=document.getElementById('mode-audio');
+      const petalFX=document.getElementById('petalFX');
+      for(let i=0;i<15;i++){
+        const petal=document.createElement('i');
+        petal.className='petal';
+        petal.style.setProperty('--x',`${3+Math.random()*94}%`);
+        petal.style.setProperty('--size',`${12+Math.random()*14}px`);
+        petal.style.setProperty('--alpha',`${.07+Math.random()*.11}`);
+        petal.style.setProperty('--duration',`${16+Math.random()*15}s`);
+        petal.style.setProperty('--delay',`${-Math.random()*28}s`);
+        petal.style.setProperty('--drift',`${-35+Math.random()*70}px`);
+        petalFX.appendChild(petal);
+      }
+      function toggleMonochrome(){
+        const applyMode=()=>{
+          const enabled=document.documentElement.classList.toggle('monochrome');
           document.documentElement.classList.remove('galaxy-on','shimmer-on');
-        } else {
-          audio.play();
-          document.documentElement.classList.add('galaxy-on','shimmer-on');
+          logo.setAttribute('aria-pressed',String(enabled));
+          logo.setAttribute('aria-label',enabled?'switch back to color mode':'switch to black and white mode');
+          if(enabled){modeAudio.currentTime=0;modeAudio.play().catch(()=>{});}
+          else{modeAudio.pause();modeAudio.currentTime=0;}
+        };
+        document.documentElement.classList.add('mode-switching');
+        if(document.startViewTransition){
+          const transition=document.startViewTransition(applyMode);
+          transition.finished.finally(()=>document.documentElement.classList.remove('mode-switching'));
+        }else{
+          applyMode();
+          window.setTimeout(()=>document.documentElement.classList.remove('mode-switching'),1350);
         }
-        isPlaying = !isPlaying;
+      }
+      logo.onclick=toggleMonochrome;
+      logo.onkeydown=e=>{
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleMonochrome();}
       };
-      audio.onended=()=>{document.documentElement.classList.remove('galaxy-on','shimmer-on'); isPlaying=false;};
 
       function renderNews(){
         const c=document.getElementById('news-container');
-        c.innerHTML=`<article style="display:flex;gap:20px;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--pink)">
-          <div><img src="pfp.png" alt="" style="width:60px;height:60px;border-radius:50%"></div>
-          <div><h3>Welcome to the new site!</h3><time>September 13, 2025 at 11:21 am</time><p>hey reader! i'm so excited to finally launch my new portfolio...</p></div>
+        c.innerHTML=`<article class="news-post is-featured" data-entry="02">
+          <div class="news-avatar"><img src="teamlogo.png?v=3" alt="team op"></div>
+          <div class="news-copy"><h3 class="news-author">team op:</h3><time class="news-date">September 4, 2026</time><p class="news-message">server has been updated :} click on the logo for a surprise !</p></div>
+        </article>
+        <article class="news-post" data-entry="01">
+          <div class="news-avatar"><img src="2026pfp.png" alt="purple"></div>
+          <div class="news-copy"><h3 class="news-author">purple:</h3><time class="news-date">September 13, 2025 at 11:21 am</time><p class="news-message">welcome to the new site! hey reader! i'm so excited to finally launch my new portfolio...</p></div>
         </article>`;
       }
     });
