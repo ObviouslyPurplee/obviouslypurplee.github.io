@@ -160,7 +160,7 @@
     .letter .signature,.letter .ps{clip-path:inset(0 100% 0 0)}
     .letter.done .signature,.letter.done .ps{transition:clip-path 1.6s steps(24) .5s; clip-path:inset(0 0 0 0)}
     .letter.done .ps{transition-delay:1.6s}
-    .typewriter{position:fixed; left:50%; bottom:0; z-index:50; --tw:min(880px,98vw,90vh); width:var(--tw); visibility:hidden; transform:translate(-50%,110%); transition:transform .7s cubic-bezier(.3,.8,.3,1), visibility 0s .7s; pointer-events:none; filter:drop-shadow(0 -10px 30px rgba(0,0,0,.6))}
+    .typewriter{position:fixed; left:50%; bottom:0; z-index:50; --tw:min(540px,94vw,50vh); width:var(--tw); visibility:hidden; transform:translate(-50%,110%); transition:transform .7s cubic-bezier(.3,.8,.3,1), visibility 0s .7s; pointer-events:none; filter:drop-shadow(0 -10px 30px rgba(0,0,0,.6))}
     .typewriter.on{transform:translate(-50%,0); visibility:visible; transition-delay:0s}
     .typewriter svg{width:100%; height:auto; display:block}
     .typewriter canvas{display:none}
@@ -221,10 +221,25 @@
     .gcard:hover img,.gcard:focus-visible img{transform:scale(1.045)}
     .gcard b{display:block; font-family:var(--serif); font-weight:600; font-size:17px; margin-top:9px}
     .gcard i{display:block; font-family:var(--type); font-style:normal; font-size:12px; color:var(--dim)}
-    /* tapes under a project: one strip per gallery */
-    .tapes{position:relative; z-index:2; display:flex; flex-direction:column; gap:22px; padding:8px 0 10px}
-    .tape-head{display:flex; align-items:baseline; gap:12px; max-width:1000px; margin:0 auto 8px; padding:0 var(--pad); font-family:var(--type); font-size:13px; letter-spacing:.1em; color:var(--dim)}
+    /* tapes under a project: one vintage cassette per gallery, the loaded one unspools into a strip */
+    .tapes{position:relative; z-index:2; padding:4px 0 10px}
+    .tapes h3{font-family:var(--type); font-weight:400; font-size:13px; letter-spacing:.14em; color:var(--dim); text-align:center; margin:6px 0 4px}
+    .shelf{display:flex; gap:18px; justify-content:safe center; overflow-x:auto; padding:16px var(--pad) 18px; scrollbar-width:thin; scrollbar-color:#3a352c transparent}
+    .cas{position:relative; flex:none; width:178px; aspect-ratio:1.58; padding:0; border:1px solid #3d382f; border-radius:9px; background:linear-gradient(160deg,#27231d,#131110 60%,#1c1915); box-shadow:0 10px 22px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12), inset 0 -8px 12px rgba(0,0,0,.5); color:#1b1a17; cursor:pointer; transition:transform .25s, box-shadow .25s, filter .25s; filter:brightness(.72)}
+    .cas::before,.cas::after{content:""; position:absolute; bottom:6px; width:5px; height:5px; border-radius:50%; background:#0a0908; box-shadow:inset 0 0 0 1px #4a443a}
+    .cas::before{left:8px}.cas::after{right:8px}
+    .cas .lbl{position:absolute; left:6%; right:6%; top:7%; bottom:17%; border-radius:4px; background:linear-gradient(#ded5bf,#cfc5ac); box-shadow:inset 0 0 0 1px rgba(0,0,0,.25); display:flex; flex-direction:column; align-items:center; padding:4px 8px 0; overflow:hidden}
+    .cas .lbl::before{content:""; position:absolute; left:0; right:0; top:0; height:5px; background:repeating-linear-gradient(90deg,#1b1a17 0 10px,transparent 10px 14px); opacity:.75}
+    .cas .lbl b{font-family:var(--hand); font-weight:400; font-size:15px; line-height:1.05; margin-top:5px; height:2.1em; display:flex; align-items:center; text-align:center; text-transform:lowercase}
+    .cas .win{width:74%; margin-top:1px}
+    .cas .rl{transform-box:fill-box; transform-origin:center}
+    .cas .meta{position:absolute; left:0; right:0; bottom:2.5%; font-family:var(--type); font-size:9.5px; letter-spacing:.14em; color:#b9b2a0; text-align:center}
+    .cas:hover,.cas:focus-visible{filter:none; transform:translateY(-3px)}
+    .cas[aria-selected="true"]{filter:none; transform:translateY(-7px); border-color:#e9e4d6; box-shadow:0 16px 28px rgba(0,0,0,.7), 0 0 0 1px #e9e4d6, inset 0 1px 0 rgba(255,255,255,.12)}
+    .theatre.open .cas[aria-selected="true"] .rl{animation:spin 3.2s linear infinite}
+    .tape-head{display:flex; align-items:baseline; justify-content:center; gap:12px; margin:0 auto 8px; padding:0 var(--pad); font-family:var(--type); font-size:13px; letter-spacing:.1em; color:var(--dim)}
     .tape-head b{font-weight:400; color:var(--ink)}
+    @media (max-width:600px){.cas{width:150px}.cas .lbl b{font-size:13.5px}}
     .film.still{--cw:168px; -webkit-mask-image:none; mask-image:none; overflow-x:auto; scrollbar-width:thin; scrollbar-color:#3a352c transparent}
     .film.still .track{animation:none; min-width:100%; box-sizing:border-box; justify-content:center; padding-left:max(6px,calc(var(--pad) - 6px)); padding-right:max(6px,calc(var(--pad) - 6px))}
     .film.still .frame-cell .pic{opacity:.62; transition:opacity .25s, box-shadow .25s}
@@ -236,10 +251,10 @@
     /* ---------- theatre (project view) ---------- */
     .theatre{position:fixed; inset:0; z-index:60; background:#050505; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain}
     .theatre[aria-hidden="true"]{display:none}
-    .stage{position:relative; min-height:100svh; display:flex; flex-direction:column; align-items:center; padding:clamp(64px,8vh,90px) var(--pad) 16px; overflow:hidden}
-    .beam{position:absolute; inset:0; pointer-events:none; z-index:1; background:linear-gradient(to top,rgba(255,250,235,.09),rgba(255,250,235,.015) 60%,rgba(255,250,235,.04)); filter:blur(6px); opacity:0; transition:opacity 1s .9s; animation:beamFlick .16s steps(2) infinite; mix-blend-mode:screen}
+    .stage{position:relative; display:flex; flex-direction:column; align-items:center; padding:clamp(58px,7vh,76px) var(--pad) 10px; overflow:hidden}
+    .beam{position:absolute; inset:0; pointer-events:none; z-index:1; background:linear-gradient(to bottom,rgba(255,250,235,.09),rgba(255,250,235,.015) 60%,rgba(255,250,235,.04)); filter:blur(6px); opacity:0; transition:opacity 1s .9s; animation:beamFlick .16s steps(2) infinite; mix-blend-mode:screen}
     @keyframes beamFlick{50%{opacity:.92}}
-    .projector{position:relative; z-index:2; width:min(250px,60vw); margin:18px auto 0; pointer-events:none}
+    .projector{position:relative; z-index:2; order:-1; width:min(150px,34vw); margin:0 auto 10px; pointer-events:none; transform:scaleY(-1)}
     .projector svg{width:100%; height:auto; display:block; overflow:visible}
     .projector .reel-spin{transform-box:fill-box; transform-origin:center; animation:spin 2.4s linear infinite; animation-play-state:paused}
     .projector .reel-spin.r2{animation-duration:1.7s}
@@ -268,7 +283,7 @@
     .theatre.open .curtain.l{transform:translateX(-102%)}
     .theatre.open .curtain.r{transform:translateX(102%)}
     .theatre.open .beam{opacity:1; animation-name:beamFlick}
-    .intertitle{min-height:5.6em; margin:26px auto 0; max-width:800px; text-align:center; font-family:var(--serif); font-style:italic; font-size:clamp(16px,1.8vw,21px); color:var(--ink); position:relative; z-index:2; transition:opacity .45s}
+    .intertitle{min-height:4.6em; margin:20px auto 0; max-width:800px; text-align:center; font-family:var(--serif); font-style:italic; font-size:clamp(16px,1.8vw,21px); color:var(--ink); position:relative; z-index:2; transition:opacity .45s}
     .intertitle small{display:block; font-style:normal; font-family:var(--type); font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--dim); margin-bottom:6px}
     .reel-controls{display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:12px; position:relative; z-index:2}
     .reel-controls button{background:none; border:1px solid var(--faint); padding:8px 14px; font-family:var(--type); font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--dim)}
@@ -979,7 +994,7 @@
     const Dust=(()=>{
       const c=$('#dust'), x=c.getContext('2d'); let ps=[], raf=0;
       function size(){c.width=c.offsetWidth; c.height=c.offsetHeight; ps=Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.6+.3,v:Math.random()*.25+.05,a:Math.random()*.5+.1}));}
-      function loop(){ if(c.width!==c.offsetWidth||c.height!==c.offsetHeight) size(); x.clearRect(0,0,c.width,c.height); for(const p of ps){p.y-=p.v;p.x+=Math.sin(p.y/40)*.2;if(p.y<0)p.y=c.height;const cx=c.width/2,spread=(c.height-p.y)/c.height*c.width*.32+20;if(Math.abs(p.x-cx)>spread)continue;x.fillStyle=`rgba(255,255,255,${p.a})`;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();} raf=requestAnimationFrame(loop);}
+      function loop(){ if(c.width!==c.offsetWidth||c.height!==c.offsetHeight) size(); x.clearRect(0,0,c.width,c.height); for(const p of ps){p.y-=p.v;p.x+=Math.sin(p.y/40)*.2;if(p.y<0)p.y=c.height;const cx=c.width/2,spread=p.y/c.height*c.width*.32+20;if(Math.abs(p.x-cx)>spread)continue;x.fillStyle=`rgba(255,255,255,${p.a})`;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();} raf=requestAnimationFrame(loop);}
       return {start(){if(reduceMotion)return; size(); cancelAnimationFrame(raf); loop();}, stop(){cancelAnimationFrame(raf);}};
     })();
 
@@ -987,9 +1002,9 @@
     function shapeBeam(){
       const st=document.querySelector('.stage'), bm=document.querySelector('.beam'), sc=$('#screen'), pj=$('#projector svg');
       if(!st||!pj) return; const r0=st.getBoundingClientRect(), rs=sc.getBoundingClientRect(), rp=pj.getBoundingClientRect();
-      const lx=rp.left-r0.left+rp.width*160/320, ly=rp.top-r0.top+rp.height*51/220;
+      const lx=rp.left-r0.left+rp.width*160/320, ly=rp.top-r0.top+rp.height*(1-51/220);
       const L=rs.left-r0.left, T=rs.top-r0.top, Rr=rs.right-r0.left, B=rs.bottom-r0.top;
-      bm.style.clipPath=`polygon(${lx-6}px ${ly}px, ${L}px ${B}px, ${L}px ${T}px, ${Rr}px ${T}px, ${Rr}px ${B}px, ${lx+6}px ${ly}px)`;
+      bm.style.clipPath=`polygon(${lx-6}px ${ly}px, ${L}px ${T}px, ${L}px ${B}px, ${Rr}px ${B}px, ${Rr}px ${T}px, ${lx+6}px ${ly}px)`;
     }
     addEventListener('resize',()=>{ if(th.getAttribute('aria-hidden')==='false') shapeBeam(); });
 
@@ -1050,21 +1065,27 @@
     let reelIdx=0, tapesFor=null;
     function markTape(){
       const tp=$('#tapes'); tp.querySelectorAll('.frame-cell.on').forEach(x=>x.classList.remove('on'));
-      const cell=tp.querySelector(`.frame-cell[data-r="${reelIdx}"][data-i="${fi}"]`); if(!cell) return;
+      const cell=tp.querySelector(`.frame-cell[data-i="${fi}"]`); if(!cell) return;
       cell.classList.add('on'); const sc=cell.closest('.film');
       sc.scrollTo({left:cell.offsetLeft-(sc.clientWidth-cell.offsetWidth)/2,behavior:reduceMotion?'auto':'smooth'});
     }
+    const casWin=`<svg class="win" viewBox="0 0 150 44" aria-hidden="true"><rect x="1" y="1" width="148" height="42" rx="8" fill="#0c0b0a" stroke="#6b6456" stroke-width="1.5"/><path d="M40 8h70v28H40z" fill="#2b1f17"/><path d="M40 8h70" stroke="#5b4636" stroke-width="2"/>${[38,112].map(cx=>`<g class="rl"><circle cx="${cx}" cy="22" r="15" fill="#3a2a1f" stroke="#8f8878" stroke-width="1.5"/><circle cx="${cx}" cy="22" r="8" fill="#e6dfcd"/>${[0,60,120,180,240,300].map(a=>`<rect x="${cx-1.2}" y="14.5" width="2.4" height="4" fill="#1b1a17" transform="rotate(${a} ${cx} 22)"/>`).join('')}<circle cx="${cx}" cy="22" r="2.6" fill="#1b1a17"/></g>`).join('')}</svg>`;
     function renderReels(active){
-      reelIdx=active; frames=cur.reels[active]?.images||[cur.d.imageSrc]; fi=0;
-      if(tapesFor===cur.id) return; tapesFor=cur.id;
+      reelIdx=active; const reel=cur.reels[active]; frames=reel?.images||[cur.d.imageSrc]; fi=0;
       const tp=$('#tapes');
-      tp.innerHTML=cur.reels.map((r,ri)=>`<div class="tape"><div class="tape-head"><b>${r.name.toLowerCase()}</b><span>${r.images.length} frames</span></div><div class="film still"><div class="track">${r.images.map((im,i)=>`<button class="frame-cell" data-r="${ri}" data-i="${i}" aria-label="${r.name.toLowerCase()}, frame ${i+1}"><span class="pic"><img src="${T(im)}" alt="" loading="lazy" decoding="async"></span><span class="edge" aria-hidden="true"><span>${String(i+1).padStart(2,'0')}</span></span></button>`).join('')}</div></div></div>`).join('');
+      if(tapesFor!==cur.id){ tapesFor=cur.id;
+        tp.innerHTML=cur.reels.length?`<h3>${cur.reels.length>1?'pick a tape':'the tape'}</h3><div class="shelf" role="tablist" aria-label="galleries">${cur.reels.map((r,ri)=>`<button class="cas" role="tab" data-r="${ri}"><span class="lbl"><b>${r.name.toLowerCase()}</b>${casWin}</span><span class="meta">${r.images.length} frames · tape ${ri+1}</span></button>`).join('')}</div><div class="tape-head"></div><div class="film still"><div class="track"></div></div>`:''; }
+      if(!reel) return;
+      tp.querySelectorAll('.cas').forEach((c,i)=>c.setAttribute('aria-selected',i===active));
+      tp.querySelector('.tape-head').innerHTML=`<b>${reel.name.toLowerCase()}</b><span>${reel.images.length} frames</span>`;
+      const st=tp.querySelector('.film.still'); st.scrollLeft=0;
+      st.querySelector('.track').innerHTML=reel.images.map((im,i)=>`<button class="frame-cell" data-i="${i}" aria-label="frame ${i+1}"><span class="pic"><img src="${T(im)}" alt="" loading="lazy" decoding="async"></span><span class="edge" aria-hidden="true"><span>${String(i+1).padStart(2,'0')}</span></span></button>`).join('');
     }
     $('#tapes').onclick=e=>{
-      const cell=e.target.closest('.frame-cell'); if(!cell) return; const r=+cell.dataset.r, i=+cell.dataset.i;
-      if(r!==reelIdx){ renderReels(r); screen.querySelectorAll('img').forEach(x=>x.remove()); }
+      const cas=e.target.closest('.cas'), cell=e.target.closest('.frame-cell'); if(!cas&&!cell) return;
+      if(cas){ if(+cas.dataset.r===reelIdx) return; renderReels(+cas.dataset.r); screen.querySelectorAll('img').forEach(x=>x.remove()); }
       runId++; $('#count').style.opacity=0; $('#card-title').style.opacity=0; th.classList.add('open');
-      setFrame(i); schedule(); th.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+      setFrame(cell?+cell.dataset.i:0); schedule(); if(cell) th.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
     };
     let lastFocus=null;
     function closeTheatre(){
@@ -1129,8 +1150,8 @@
     })();
     (function letter(){
       const L=document.querySelector('.letter'), stage=$('#envelope-stage'), hurry=$('#hurry'), typewriter=$('#typewriter');
-      const tbH=()=>typewriter.classList.contains('on')?typewriter.offsetHeight*.985:0;
-      const pin=()=>{ const d=caret.getBoundingClientRect().bottom-(innerHeight-tbH()); if(Math.abs(d)>6) scrollBy({top:d,behavior:'smooth'}); }; // keep the line being typed just above the roller, so the page feeds out of the machine
+      const tbH=()=>typewriter.classList.contains('on')?typewriter.offsetHeight+10:0;
+      const pin=()=>{ const d=caret.getBoundingClientRect().bottom-(innerHeight-tbH()); if(d>2) scrollBy({top:d,behavior:'smooth'}); }; // keep the line being typed just above the roller, so the page feeds out of the machine
       const keys=[...typewriter.querySelectorAll('.k')], bars=[...typewriter.querySelectorAll('.bar')];
       function press(which){
         if(window.tw3d){ window.tw3d.press(which); return; }
