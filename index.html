@@ -279,8 +279,9 @@
     .reel-controls button:hover{border-color:var(--ink); color:var(--ink)}
     .reel-controls .counter{font-family:var(--type); color:var(--dim); font-size:13px; letter-spacing:.04em; min-width:7em; text-align:center}
     .theatre-bar{position:fixed; top:0; left:0; right:0; z-index:70; display:flex; justify-content:space-between; align-items:center; padding:14px var(--pad); background:linear-gradient(#050505,transparent)}
-    .theatre-bar .title{font-family:var(--type); letter-spacing:.04em; text-transform:uppercase; font-size:13px; color:var(--dim)}
+    .theatre-bar .title{position:absolute; left:50%; transform:translateX(-50%); white-space:nowrap; pointer-events:none; font-family:var(--type); letter-spacing:.04em; text-transform:uppercase; font-size:13px; color:var(--dim)}
     .theatre-bar .right{display:flex; gap:10px}
+    @media (max-width:1000px){.theatre-bar .title{display:none}}
     .theatre-bar button,.theatre-bar a{background:#050505; border:1px solid var(--faint); padding:8px 14px; font-family:var(--type); font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); text-decoration:none}
     .theatre-bar button:hover,.theatre-bar a:hover{border-color:var(--ink)}
 
