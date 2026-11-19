@@ -84,6 +84,8 @@
     @keyframes bulb{0%,100%{opacity:1}50%{opacity:.2}}
     .marquee small{font-family:var(--type); letter-spacing:.04em; text-transform:uppercase; color:var(--dim); font-size:13px; letter-spacing:.14em}
     .marquee h1{font-family:var(--script); font-weight:400; font-size:clamp(40px,5.4vw,76px); line-height:1; padding:.3em 1.3em .8em; margin:0; letter-spacing:0; text-shadow:0 0 22px rgba(255,255,255,.18)}
+    .sr-only{position:absolute!important; width:1px; height:1px; padding:0!important; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+    .marquee small{margin-bottom:14px}
     .marquee p{font-family:var(--type); font-style:normal; font-size:clamp(12px,1.2vw,15px); letter-spacing:clamp(.06em,.8vw,.16em); color:var(--dim); margin:0}
 
     .letter{position:relative; max-width:860px; margin:34px auto 0; background:var(--paper); color:var(--paper-ink); padding:clamp(22px,4vw,44px) clamp(20px,4.5vw,58px) clamp(24px,4vw,40px); font-family:var(--typewriter); font-size:clamp(16px,1.3vw,18px); line-height:1.6; box-shadow:0 30px 80px rgba(0,0,0,.7); transform:rotate(-.6deg); filter:grayscale(1) contrast(1.04)}
@@ -192,7 +194,7 @@
 
     /* ---------- now showing (grid) ---------- */
     .section-title{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin:clamp(60px,8vw,100px) 0 22px; border-bottom:1px solid var(--faint); padding-bottom:12px}
-    .section-title h2{font-family:var(--display); font-weight:400; font-size:clamp(28px,4vw,46px); margin:0; letter-spacing:.03em}
+    .section-title h2{font-family:var(--display); font-weight:400; font-size:clamp(28px,4vw,46px); margin:0; padding:.25em .4em 0 .9em; line-height:1.1; letter-spacing:.03em}
     .section-title span{font-family:var(--type); color:var(--dim); font-size:14px; letter-spacing:.04em; text-transform:uppercase}
     .films{display:flex; flex-direction:column; gap:34px; margin:10px calc(var(--pad)*-1) 0; overflow:hidden; padding:20px 0}
     .film{position:relative; background:#16130f; padding:30px 0; transform:rotate(-1.2deg); box-shadow:0 18px 40px rgba(0,0,0,.6); overflow:hidden}
@@ -352,7 +354,7 @@
       <section class="marquee" id="top">
         <div class="bulbs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <small>team op presents · for your consideration</small>
-        <h1>purple</h1>
+        <h1 class="sr-only">purple</h1>
         <p>art direction · environments · ui · 3d · production</p>
       </section>
 

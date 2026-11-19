@@ -20,8 +20,8 @@ if (renderer) {
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
   const camera = new THREE.PerspectiveCamera(30, 1.3, 1, 400);
-  camera.position.set(0, 48, 46);
-  camera.lookAt(0, 6, -0.5);
+  camera.position.set(0, 56, 58);
+  camera.lookAt(0, 5, -1);
 
   // lights: warm key from upper left, cool rim from behind
   const key = new THREE.DirectionalLight(0xfff4e0, 2.4);
@@ -123,7 +123,7 @@ if (renderer) {
 
   // sizing
   function size() {
-    const w = host.clientWidth, h = Math.round(w / 1.3);
+    const w = host.clientWidth, h = Math.round(w / 1.15);
     renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
     camera.aspect = w / h; camera.updateProjectionMatrix();
   }
