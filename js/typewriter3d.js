@@ -19,9 +19,9 @@ if (renderer) {
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
-  const camera = new THREE.PerspectiveCamera(30, 1.3, 1, 400);
-  camera.position.set(0, 56, 58);
-  camera.lookAt(0, 5, -1);
+  const camera = new THREE.PerspectiveCamera(22, 1.55, 1, 400);
+  camera.position.set(0, 74, 34);
+  camera.lookAt(0, 6, 0);
 
   // lights: warm key from upper left, cool rim from behind
   const key = new THREE.DirectionalLight(0xfff4e0, 2.4);
@@ -34,11 +34,20 @@ if (renderer) {
   scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 0.35));
 
   // materials
-  const paint = new THREE.MeshPhysicalMaterial({ color: 0x080808, roughness: 0.45, metalness: 0.05, clearcoat: 0.8, clearcoatRoughness: 0.25 });
+  const paint = new THREE.MeshPhysicalMaterial({ color: 0x080808, roughness: 0.45, metalness: 0.05, clearcoat: 0.8, clearcoatRoughness: 0.25, envMapIntensity: 0.4 });
   const chrome = new THREE.MeshStandardMaterial({ color: 0xe8e8e8, metalness: 1, roughness: 0.16 });
   const darkMetal = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, metalness: 0.85, roughness: 0.38 });
   const rubber = new THREE.MeshStandardMaterial({ color: 0x0b0b0b, roughness: 0.75 });
   const ivory = new THREE.MeshPhysicalMaterial({ color: 0xf2eee4, roughness: 0.28, clearcoat: 0.6 });
+  const keyBlack = new THREE.MeshPhysicalMaterial({ color: 0x0c0c0c, roughness: 0.25, clearcoat: 1 });
+  const legend = ch => {
+    const c = document.createElement('canvas'); c.width = c.height = 96; const g = c.getContext('2d');
+    g.fillStyle = '#0d0d0d'; g.fillRect(0, 0, 96, 96);
+    g.fillStyle = '#f3efe4'; g.font = 'bold 58px "Courier New", monospace'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(ch.toUpperCase(), 48, 52);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+    return new THREE.MeshPhysicalMaterial({ map: t, roughness: 0.22, clearcoat: 1 });
+  };
   const felt = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1 });
 
   const shadowy = m => { m.castShadow = true; m.receiveShadow = true; return m; };
@@ -62,19 +71,19 @@ if (renderer) {
   add(tw, new THREE.BoxGeometry(W + 0.6, 0.35, 0.35), chrome, 0, 3.9, 11.9);
 
   // typebar basket: dark felt well with a fan of typebars
-  const well = add(tw, new THREE.CylinderGeometry(8.5, 8.5, 1, 48, 1, false, -Math.PI / 2, Math.PI), felt, 0, 11.55, -6.6);
+  const well = add(tw, new THREE.CylinderGeometry(7, 7, 1, 48, 1, false, -Math.PI / 2, Math.PI), felt, 0, 11.55, -6.6);
   well.scale.set(1, 1, 0.62);
   const bars = [];
   for (let i = 0; i < 25; i++) {
     const a = -Math.PI / 2 + (i + 0.5) * Math.PI / 25;
     const pivot = new THREE.Group();
-    pivot.position.set(Math.sin(a) * 7.6, 12.1, -6.6 + Math.cos(a) * 4.7);
+    pivot.position.set(Math.sin(a) * 6.2, 12.1, -6.6 + Math.cos(a) * 3.9);
     pivot.rotation.y = a;
-    const bar = add(pivot, new THREE.BoxGeometry(0.22, 0.12, 4.6), darkMetal, 0, 0, -2.3);
+    const bar = add(pivot, new THREE.BoxGeometry(0.2, 0.12, 3.8), darkMetal, 0, 0, -1.9);
     bar.castShadow = false;
     tw.add(pivot); bars.push(pivot);
   }
-  add(tw, new THREE.TorusGeometry(7.9, 0.18, 8, 64, Math.PI), chrome, 0, 12.1, -6.6).rotation.set(-Math.PI / 2, 0, Math.PI);
+  add(tw, new THREE.TorusGeometry(6.5, 0.18, 8, 64, Math.PI), chrome, 0, 12.1, -6.6).rotation.set(-Math.PI / 2, 0, Math.PI);
 
   // carriage (slides side to side)
   const carriage = new THREE.Group(); carriage.position.set(0, 13.6, -9); tw.add(carriage);
@@ -93,24 +102,30 @@ if (renderer) {
   // carriage rail on the body
   add(tw, new THREE.BoxGeometry(W + 6, 0.8, 1.2), chrome, 0, 11.4, -11);
 
-  // keys: 4 staggered rows of round keys on chrome stems, climbing the slope
-  const keys = [];
-  const capGeo = new THREE.CylinderGeometry(0.78, 0.78, 0.36, 32);
-  const ringGeo = new THREE.TorusGeometry(0.8, 0.13, 10, 32);
+  // keys: 4 staggered rows of round glass keys with legends, on chrome stems, climbing the slope
+  const keys = [], keyOf = {};
+  const capGeo = new THREE.CylinderGeometry(0.86, 0.86, 0.4, 36);
+  const ringGeo = new THREE.TorusGeometry(0.9, 0.14, 10, 36);
   const stemGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.4, 8);
-  const rows = [[11, 0], [11, 0.55], [10, 0.25], [10, 0.8]];
-  rows.forEach(([n, off], r) => {
-    const z = 9.2 - r * 2.25, y = 6.9 + r * 1.15;
-    for (let i = 0; i < n; i++) {
+  const rows = [['zxcvbnm,./', 0.9], ['asdfghjkl;', 0.3], ['qwertyuiop', -0.25], ['1234567890-', 0]];
+  rows.forEach(([chars, off], r) => {
+    const z = 9.2 - r * 2.3, y = 6.9 + r * 1.15, n = chars.length;
+    [...chars].forEach((ch, i) => {
       const g = new THREE.Group();
-      const x = (i - (n - 1) / 2) * 2.15 + off - 0.3;
-      g.position.set(x, y, z); g.rotation.x = -0.12;
-      add(g, capGeo, ivory, 0, 0, 0);
-      const ring = add(g, ringGeo, chrome, 0, 0, 0); ring.rotation.x = Math.PI / 2;
-      add(g, stemGeo, chrome, 0, -1.25, -0.4).rotation.x = -0.35;
-      tw.add(g); keys.push({ g, y0: y, t: 0 });
-    }
+      const x = (i - (n - 1) / 2) * 2.3 + off;
+      g.position.set(x, y, z); g.rotation.x = 0.35;
+      const cap = add(g, capGeo, [keyBlack, legend(ch), keyBlack], 0, 0, 0); cap.rotation.y = Math.PI / 2;
+      const ring = add(g, ringGeo, chrome, 0, 0.05, 0); ring.rotation.x = Math.PI / 2;
+      add(g, stemGeo, chrome, 0, -1.3, 0);
+      tw.add(g); const k = { g, y0: y, t: 0 }; keys.push(k); keyOf[ch] = k;
+    });
   });
+  // ribbon spools either side of the typebar basket
+  for (const sx of [-1, 1]) {
+    add(tw, new THREE.CylinderGeometry(2.3, 2.3, 0.9, 40), darkMetal, sx * 10.6, 12.4, -6.2);
+    add(tw, new THREE.CylinderGeometry(2.45, 2.45, 0.12, 40), chrome, sx * 10.6, 12.9, -6.2);
+    add(tw, new THREE.CylinderGeometry(0.5, 0.5, 1.2, 20), chrome, sx * 10.6, 12.6, -6.2);
+  }
   const space = new THREE.Group(); space.position.set(0, 5.4, 11.6); tw.add(space);
   add(space, new THREE.CylinderGeometry(0.42, 0.42, 13, 20), chrome).rotation.z = Math.PI / 2;
   const spaceKey = { g: space, y0: 5.4, t: 0 };
@@ -119,11 +134,10 @@ if (renderer) {
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), new THREE.ShadowMaterial({ opacity: 0.55 }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
 
-  tw.rotation.y = -0.06;
 
   // sizing
   function size() {
-    const w = host.clientWidth, h = Math.round(w / 1.15);
+    const w = host.clientWidth, h = Math.round(w / 1.55);
     renderer.setSize(w, h, false); canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
     camera.aspect = w / h; camera.updateProjectionMatrix();
   }
@@ -132,11 +146,12 @@ if (renderer) {
   // animation
   let carriageX = 0, carriageTarget = 0, strike = null, strikeT = 0;
   function press(which) {
-    const k = which === 'space' ? spaceKey : keys[Math.random() * keys.length | 0];
+    const ch = (which || '').toLowerCase();
+    const k = which === 'space' || ch === ' ' ? spaceKey : keyOf[ch] || keys[Math.random() * keys.length | 0];
     k.t = 1;
-    if (which !== 'space') { strike = bars[Math.random() * bars.length | 0]; strikeT = 1; }
-    carriageTarget = Math.max(-6, carriageTarget - 0.35);
-    if (carriageTarget <= -6) carriageTarget = 6; // carriage return
+    if (k !== spaceKey) { strike = bars[Math.random() * bars.length | 0]; strikeT = 1; }
+    carriageTarget -= 0.06;
+    if (carriageTarget <= -2.2) carriageTarget = 2.2; // carriage return
   }
   let last = performance.now();
   function frame(now) {
