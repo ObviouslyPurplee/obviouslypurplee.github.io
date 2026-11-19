@@ -160,19 +160,8 @@
     .letter .signature,.letter .ps{clip-path:inset(0 100% 0 0)}
     .letter.done .signature,.letter.done .ps{transition:clip-path 1.6s steps(24) .5s; clip-path:inset(0 0 0 0)}
     .letter.done .ps{transition-delay:1.6s}
-    .typewriter{position:fixed; left:50%; bottom:0; z-index:50; --tw:min(540px,94vw,50vh); width:var(--tw); visibility:hidden; transform:translate(-50%,110%); transition:transform .7s cubic-bezier(.3,.8,.3,1), visibility 0s .7s; pointer-events:none; filter:drop-shadow(0 -10px 30px rgba(0,0,0,.6))}
-    .typewriter.on{transform:translate(-50%,0); visibility:visible; transition-delay:0s}
-    .typewriter svg{width:100%; height:auto; display:block}
-    .typewriter canvas{display:none}
-    .typewriter.is3d canvas{display:block}
-    .typewriter.is3d svg{display:none}
-    .typewriter .carriage{transform:translateX(var(--carriage,0)); transition:transform .08s}
-    .typewriter .k,.typewriter .space{transition:transform .05s}
-    .typewriter .k.down,.typewriter .space.down{transform:translateY(3px)}
-    .typewriter .bar{transform-box:view-box; transition:transform .06s}
-    .typewriter .bar.strike{stroke:#e9e6dc}
     .hurry{position:fixed; right:18px; bottom:18px; z-index:51; display:block; margin:14px auto 0; font-family:var(--hand); font-size:18px; background:var(--ink); color:var(--bg); border:0; padding:6px 16px; transform:rotate(-2deg)}
-    @media (max-width:600px){.hurry{right:50%; translate:50% 0; bottom:6px; white-space:nowrap; font-size:16px; padding:4px 12px}}
+    @media (max-width:600px){.hurry{right:50%; translate:50% 0; bottom:10px; white-space:nowrap}}
     .letter-actions,.after-letter{transition:opacity .6s}
     body.sealed .letter-actions{opacity:0; pointer-events:none}
     .signature img{display:inline-block; height:64px; filter:grayscale(1) brightness(.15)}
@@ -254,7 +243,7 @@
     .stage{position:relative; display:flex; flex-direction:column; align-items:center; padding:clamp(58px,7vh,76px) var(--pad) 10px; overflow:hidden}
     .beam{position:absolute; inset:0; pointer-events:none; z-index:1; background:linear-gradient(to bottom,rgba(255,250,235,.09),rgba(255,250,235,.015) 60%,rgba(255,250,235,.04)); filter:blur(6px); opacity:0; transition:opacity 1s .9s; animation:beamFlick .16s steps(2) infinite; mix-blend-mode:screen}
     @keyframes beamFlick{50%{opacity:.92}}
-    .projector{position:relative; z-index:2; order:-1; width:min(150px,34vw); margin:0 auto 10px; pointer-events:none; transform:scaleY(-1)}
+    .projector{position:relative; z-index:2; order:-1; width:min(190px,42vw); margin:0 auto 12px; pointer-events:none}
     .projector svg{width:100%; height:auto; display:block; overflow:visible}
     .projector .reel-spin{transform-box:fill-box; transform-origin:center; animation:spin 2.4s linear infinite; animation-play-state:paused}
     .projector .reel-spin.r2{animation-duration:1.7s}
@@ -474,36 +463,6 @@
         <p class="ps">P.S. my work is below. Pick any reel, take a seat, and turn your sound up!</p>
       </article>
       </div>
-      <div class="typewriter" id="typewriter" aria-hidden="true">
-        <canvas id="tw3d"></canvas>
-        <svg viewBox="0 0 520 440">
-          <defs>
-            <linearGradient id="twBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3a37"/><stop offset=".55" stop-color="#1d1c1a"/><stop offset="1" stop-color="#0d0c0b"/></linearGradient>
-            <linearGradient id="twChrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1efe9"/><stop offset=".45" stop-color="#8f8c84"/><stop offset=".55" stop-color="#5c5a54"/><stop offset="1" stop-color="#cfccc4"/></linearGradient>
-            <linearGradient id="twRoll" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4844"/><stop offset=".4" stop-color="#111"/><stop offset="1" stop-color="#2a2926"/></linearGradient>
-            <radialGradient id="twKey" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fbfaf6"/><stop offset="1" stop-color="#d8d4ca"/></radialGradient>
-          </defs>
-          <ellipse cx="260" cy="430" rx="230" ry="12" fill="#000" opacity=".55"/>
-          <g class="carriage">
-            <rect x="40" y="96" width="440" height="20" rx="8" fill="url(#twChrome)"/>
-            <rect x="60" y="108" width="400" height="44" rx="22" fill="url(#twRoll)"/>
-            <circle cx="40" cy="130" r="22" fill="url(#twChrome)"/><circle cx="40" cy="130" r="9" fill="#2a2926"/>
-            <circle cx="480" cy="130" r="22" fill="url(#twChrome)"/><circle cx="480" cy="130" r="9" fill="#2a2926"/>
-            <path d="M14 104 l-10 -26 h26 z" fill="url(#twChrome)"/>
-            <rect x="120" y="150" width="280" height="6" rx="3" fill="url(#twChrome)"/>
-          </g>
-          <path d="M70 160 Q260 140 450 160 L486 272 Q260 262 34 272 Z" fill="url(#twBody)"/>
-          <path d="M150 168 Q260 158 370 168 L380 236 Q260 226 140 236 Z" fill="#0a0a09"/>
-          <line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-80 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-70 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-60 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-50 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-40 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-30 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-20 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(-10 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(0 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(10 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(20 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(30 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(40 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(50 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(60 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(70 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/><line class="bar" x1="260" y1="232" x2="260" y2="174" transform="rotate(80 260 240)" stroke="#9a978e" stroke-width="2.4" stroke-linecap="round"/>
-          <circle cx="260" cy="176" r="6" fill="url(#twChrome)"/>
-          <path d="M34 272 Q260 262 486 272 L508 404 Q260 420 12 404 Z" fill="url(#twBody)"/>
-          <path d="M60 280 Q260 272 460 280" stroke="#4d4b46" stroke-width="2" fill="none"/>
-          <text x="260" y="196" text-anchor="middle" font-family="Panamericana Uno, serif" font-size="22" fill="#d9d4c4" opacity=".0">op</text>
-          <g class="k"><circle cx="118" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="118" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="147" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="147" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="176" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="176" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="205" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="205" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="234" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="234" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="263" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="263" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="292" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="292" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="321" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="321" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="350" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="350" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="379" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="379" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="408" cy="303" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="408" cy="300" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="132" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="132" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="161" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="161" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="190" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="190" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="219" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="219" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="248" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="248" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="277" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="277" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="306" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="306" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="335" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="335" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="364" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="364" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="393" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="393" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="422" cy="331" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="422" cy="328" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="146" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="146" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="175" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="175" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="204" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="204" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="233" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="233" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="262" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="262" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="291" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="291" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="320" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="320" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="349" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="349" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="378" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="378" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="407" cy="359" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="407" cy="356" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="160" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="160" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="189" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="189" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="218" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="218" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="247" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="247" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="276" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="276" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="305" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="305" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="334" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="334" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="363" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="363" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g><g class="k"><circle cx="392" cy="387" r="11" fill="#000" opacity=".5"/><circle class="cap" cx="392" cy="384" r="11" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g>
-          <g class="space"><rect x="170" y="398" width="180" height="14" rx="7" fill="#000" opacity=".5"/><rect class="cap" x="170" y="394" width="180" height="14" rx="7" fill="url(#twKey)" stroke="#c9c6bd" stroke-width="2"/></g>
-          <text x="260" y="262" text-anchor="middle" font-family="Panamericana Uno, serif" font-size="26" fill="#cfc9b8">obviouslypurple</text>
-        </svg>
-      </div>
       <button class="hurry hidden" id="hurry">hurry up, typist! (skip)</button>
 
       <div class="letter-actions">
@@ -588,32 +547,31 @@
               <circle r="7" fill="url(#pjMetal)"/><circle r="2.5" fill="#111"/>
             </g>
           </defs>
-          <!-- film path -->
-          <path d="M70 92 L118 132 M250 92 L206 132" stroke="#4d4c49" stroke-width="2.5" fill="none"/>
-          <path d="M68 96 L114 136" stroke="#9b9a95" stroke-width=".6" stroke-dasharray="2 3" fill="none"/>
-          <!-- reel arms -->
-          <path d="M70 52 L104 128 M250 52 L216 128" stroke="url(#pjMetal)" stroke-width="7" stroke-linecap="round"/>
-          <g transform="translate(70 52)"><g class="reel-spin"><use href="#pjReel"/></g></g>
-          <g transform="translate(250 52) scale(.82)"><g class="reel-spin r2"><use href="#pjReel"/></g></g>
+          <!-- ceiling mount -->
+          <path d="M120 4h80" stroke="#2c2c2a" stroke-width="6" stroke-linecap="round"/>
+          <path d="M160 6v40" stroke="url(#pjMetal)" stroke-width="8"/>
+          <!-- reel arms + reels -->
+          <path d="M74 66 L112 96 M246 66 L208 96" stroke="url(#pjMetal)" stroke-width="7" stroke-linecap="round"/>
+          <g transform="translate(70 62)"><g class="reel-spin"><use href="#pjReel"/></g></g>
+          <g transform="translate(250 62) scale(.82)"><g class="reel-spin r2"><use href="#pjReel"/></g></g>
+          <!-- film path down into the gate -->
+          <path d="M70 108 L122 132 M250 100 L200 132" stroke="#4d4c49" stroke-width="2.5" fill="none"/>
           <!-- body -->
-          <rect x="92" y="122" width="148" height="66" rx="8" fill="url(#pjBody)" stroke="#4a4a47"/>
-          <rect x="100" y="130" width="132" height="5" rx="2" fill="#4a4a47"/>
-          <g stroke="#0c0c0b" stroke-width="3" stroke-linecap="round"><path d="M110 148v26M120 148v26M130 148v26M140 148v26M150 148v26"/></g>
-          <circle cx="196" cy="160" r="15" fill="#1a1a19" stroke="url(#pjMetal)" stroke-width="3"/>
-          <g class="reel-spin r2"><path d="M196 148v24M184 160h24" stroke="#5b5a57" stroke-width="2.5"/></g>
-          <circle cx="226" cy="178" r="4" fill="#777"/>
+          <rect x="92" y="46" width="136" height="88" rx="9" fill="url(#pjBody)" stroke="#4a4a47"/>
+          <rect x="100" y="54" width="120" height="5" rx="2" fill="#4a4a47"/>
+          <g stroke="#0c0c0b" stroke-width="3" stroke-linecap="round"><path d="M108 72v30M118 72v30M128 72v30M138 72v30M148 72v30"/></g>
+          <circle cx="190" cy="88" r="16" fill="#1a1a19" stroke="url(#pjMetal)" stroke-width="3"/>
+          <g class="reel-spin r2"><path d="M190 76v24M178 88h24" stroke="#5b5a57" stroke-width="2.5"/></g>
+          <circle cx="214" cy="120" r="4" fill="#777"/>
           <!-- lamp house -->
-          <rect x="128" y="94" width="44" height="30" rx="4" fill="url(#pjBody)" stroke="#4a4a47"/>
-          <path d="M134 100h32M134 106h32M134 112h32" stroke="#0e0e0d" stroke-width="2"/>
-          <!-- lens barrel pointing up at the screen -->
-          <rect x="146" y="58" width="28" height="38" rx="3" fill="url(#pjMetal)"/>
-          <rect x="142" y="52" width="36" height="10" rx="3" fill="#2c2c2a" stroke="#6d6c68"/>
-          <rect x="146" y="70" width="28" height="3" fill="#2c2c2a"/><rect x="146" y="80" width="28" height="3" fill="#2c2c2a"/>
-          <ellipse cx="160" cy="52" rx="16" ry="4" fill="#0e0e0d"/>
-          <g class="lamp"><ellipse cx="160" cy="51" rx="14" ry="3.2" fill="#fff8de"/><circle cx="160" cy="50" r="30" fill="url(#pjLamp)"/></g>
-          <!-- stand -->
-          <path d="M112 188 L96 214 M220 188 L236 214 M166 188 V214" stroke="url(#pjMetal)" stroke-width="6" stroke-linecap="round"/>
-          <path d="M86 214h160" stroke="#2c2c2a" stroke-width="4" stroke-linecap="round"/>
+          <rect x="136" y="132" width="48" height="24" rx="4" fill="url(#pjBody)" stroke="#4a4a47"/>
+          <path d="M142 138h36M142 144h36M142 150h36" stroke="#0e0e0d" stroke-width="2"/>
+          <!-- lens barrel pointing down at the screen -->
+          <rect x="146" y="154" width="28" height="34" rx="3" fill="url(#pjMetal)"/>
+          <rect x="146" y="164" width="28" height="3" fill="#2c2c2a"/><rect x="146" y="174" width="28" height="3" fill="#2c2c2a"/>
+          <rect x="142" y="184" width="36" height="10" rx="3" fill="#2c2c2a" stroke="#6d6c68"/>
+          <ellipse cx="160" cy="194" rx="16" ry="4" fill="#0e0e0d"/>
+          <g class="lamp"><ellipse cx="160" cy="195" rx="14" ry="3.2" fill="#fff8de"/><circle cx="160" cy="196" r="30" fill="url(#pjLamp)"/></g>
         </svg>
       </div>
 
@@ -1002,7 +960,7 @@
     function shapeBeam(){
       const st=document.querySelector('.stage'), bm=document.querySelector('.beam'), sc=$('#screen'), pj=$('#projector svg');
       if(!st||!pj) return; const r0=st.getBoundingClientRect(), rs=sc.getBoundingClientRect(), rp=pj.getBoundingClientRect();
-      const lx=rp.left-r0.left+rp.width*160/320, ly=rp.top-r0.top+rp.height*(1-51/220);
+      const lx=rp.left-r0.left+rp.width*160/320, ly=rp.top-r0.top+rp.height*196/220;
       const L=rs.left-r0.left, T=rs.top-r0.top, Rr=rs.right-r0.left, B=rs.bottom-r0.top;
       bm.style.clipPath=`polygon(${lx-6}px ${ly}px, ${L}px ${T}px, ${L}px ${B}px, ${Rr}px ${B}px, ${Rr}px ${T}px, ${lx+6}px ${ly}px)`;
     }
@@ -1149,17 +1107,8 @@
       };
     })();
     (function letter(){
-      const L=document.querySelector('.letter'), stage=$('#envelope-stage'), hurry=$('#hurry'), typewriter=$('#typewriter');
-      const tbH=()=>typewriter.classList.contains('on')?typewriter.offsetHeight+10:0;
-      const pin=()=>{ const d=caret.getBoundingClientRect().bottom-(innerHeight-tbH()); if(d>2) scrollBy({top:d,behavior:'smooth'}); }; // keep the line being typed just above the roller, so the page feeds out of the machine
-      const keys=[...typewriter.querySelectorAll('.k')], bars=[...typewriter.querySelectorAll('.bar')];
-      function press(which){
-        if(window.tw3d){ window.tw3d.press(which); return; }
-        const k=which==='space'?typewriter.querySelector('.space'):keys[Math.random()*keys.length|0];
-        k.classList.add('down'); setTimeout(()=>k.classList.remove('down'),70);
-        if(which!=='space'){ const b=bars[Math.random()*bars.length|0]; b.classList.add('strike'); setTimeout(()=>b.classList.remove('strike'),80); }
-        typewriter.style.setProperty('--carriage',(Math.random()*-30)+'px');
-      }
+      const L=document.querySelector('.letter'), stage=$('#envelope-stage'), hurry=$('#hurry');
+      const pin=()=>{ const d=caret.getBoundingClientRect().bottom-(innerHeight-90); if(d>2) scrollBy({top:d+60,behavior:'smooth'}); }; // keep the line being typed in view
       let seen=false;
       if(seen||reduceMotion||location.hash){ L.classList.add('done','static'); return; } // returning visitors and deep links skip the show
       // collect text nodes to type
@@ -1173,7 +1122,7 @@
         SFX.crack(); stage.classList.add('opening'); setTimeout(()=>SFX.rustle(),500);
         await wait(2600); stage.classList.add('hidden');
         L.classList.remove('hidden'); L.classList.add('arrive','typing'); SFX.ding();
-        hurry.classList.remove('hidden'); typewriter.classList.add('on');
+        hurry.classList.remove('hidden');
         await wait(900); await type(); finish();
       };
       async function type(){
@@ -1186,7 +1135,7 @@
             if(skip){o.n.nodeValue=o.t; break;}
             o.n.nodeValue=o.t.slice(0,i+3);
             const ch=o.t.slice(i,i+3);
-            const c=ch.replace(/\s/g,'')[0]; if(c){ SFX.key(); press(c); } else { SFX.space(); press('space'); }
+            const c=ch.replace(/\s/g,'')[0]; if(c) SFX.key(); else SFX.space();
             if(i%30===27) pin();
             await wait(/[.,:]/.test(ch)?110:26+Math.random()*22);
           }
@@ -1194,7 +1143,7 @@
       }
       function finish(){
         skip=true; nodes.forEach(o=>o.n.nodeValue=o.t); caret.remove();
-        L.classList.remove('typing'); L.classList.add('done'); hurry.classList.add('hidden'); typewriter.classList.remove('on');
+        L.classList.remove('typing'); L.classList.add('done'); hurry.classList.add('hidden');
         document.body.classList.remove('sealed');
         setTimeout(()=>{ L.classList.add('inked'); SFX.thud(); },450);
         setTimeout(()=>SFX.scribble(),1000);
@@ -1210,6 +1159,5 @@
     logo.onclick=()=>{ if(song.paused){song.currentTime=0; song.play().catch(()=>{}); logo.setAttribute('aria-pressed','true');} else {song.pause(); logo.setAttribute('aria-pressed','false');} };
   })();
   </script>
-  <script type="module" src="js/typewriter3d.js"></script>
 </body>
 </html>
