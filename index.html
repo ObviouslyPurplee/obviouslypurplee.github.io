@@ -272,6 +272,44 @@
     .theatre.open .curtain.l{transform:translateX(-102%)}
     .theatre.open .curtain.r{transform:translateX(102%)}
     .theatre.open .beam{opacity:1; animation-name:beamFlick}
+    /* film effects on the screen */
+    .screen .fx{position:absolute; inset:0; z-index:3; pointer-events:none; overflow:hidden}
+    .fx .specks{position:absolute; inset:-20%; background:radial-gradient(circle,rgba(255,255,255,.75) 0 1px,transparent 1.6px) 13% 22%/190px 170px, radial-gradient(circle,rgba(0,0,0,.7) 0 1.4px,transparent 2px) 61% 70%/260px 210px, radial-gradient(ellipse 1px 9px,rgba(255,255,255,.5) 0 60%,transparent 100%) 80% 30%/330px 290px; opacity:.5; animation:specks .9s steps(1) infinite}
+    @keyframes specks{0%{transform:translate(0,0)}14%{transform:translate(-7%,5%)}28%{transform:translate(6%,-9%)}42%{transform:translate(-11%,-4%)}57%{transform:translate(9%,8%)}71%{transform:translate(-3%,11%)}85%{transform:translate(12%,-6%)}}
+    .fx .scr{position:absolute; top:0; bottom:0; width:1px; background:linear-gradient(transparent,rgba(255,255,255,.55) 20%,rgba(255,255,255,.25) 70%,transparent); opacity:0; animation:scrLine 6.5s linear infinite}
+    .fx .scr.b{animation-duration:9.7s; animation-delay:-4s; width:2px; filter:blur(.5px)}
+    @keyframes scrLine{0%{left:22%;opacity:0}3%{opacity:.9}9%{left:24%;opacity:.5}10%{opacity:0}48%{left:78%;opacity:0}50%{opacity:.8}57%{left:76.5%;opacity:.6}58%{opacity:0}100%{left:76%;opacity:0}}
+    .fx .cue{position:absolute; top:7%; right:5%; width:clamp(14px,2.4vw,26px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,#111 0 45%,#f4e9c4 50% 62%,transparent 68%); opacity:0}
+    .screen.cue-on .cue{animation:cue .8s steps(1) forwards}
+    @keyframes cue{0%{opacity:.95}22%{opacity:0}45%{opacity:.95}70%{opacity:0}}
+    .fx .gate{position:absolute; left:0; right:0; height:16%; top:-20%; background:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+    .screen.adv .gate{animation:gate .26s linear}
+    @keyframes gate{from{top:-20%}to{top:105%}}
+    .screen.adv{animation:gateflash .3s steps(3)}
+    @keyframes gateflash{0%{filter:brightness(1.9) contrast(.9)}40%{filter:brightness(.55)}70%{filter:brightness(1.25)}100%{filter:none}}
+    .screen.adv img.on{animation:slip .26s cubic-bezier(.2,.8,.3,1), jitter .12s steps(2) infinite .26s, kenburns 6s ease-out forwards}
+    @keyframes slip{from{translate:0 -14%; opacity:.4}to{translate:0 0; opacity:1}}
+    .theatre.open .screen{animation:screenGlow 5s ease-in-out infinite}
+    .theatre.open .screen.adv{animation:gateflash .3s steps(3)}
+    @keyframes screenGlow{0%,100%{box-shadow:0 0 0 8px #1a1a1a,0 0 80px rgba(255,255,255,.12)}50%{box-shadow:0 0 0 8px #1a1a1a,0 0 120px rgba(255,255,255,.2)}}
+    /* projector life */
+    .theatre.open .projector svg{animation:rattle .13s steps(2) infinite}
+    @keyframes rattle{50%{transform:translate(.6px,-.5px) rotate(.12deg)}}
+    .theatre.open .projector .lamp{animation:lampFlick 2.7s steps(1) infinite 1.6s}
+    @keyframes lampFlick{0%,100%{opacity:1}31%{opacity:.82}33%{opacity:1}64%{opacity:.9}65%{opacity:.7}67%{opacity:1}}
+    /* time-to-next-frame leader under the screen */
+    .leader{position:relative; z-index:2; width:min(100%,1100px,(100svh - 540px)*1.78); min-width:min(100%,520px); height:3px; margin-top:12px; background:repeating-linear-gradient(90deg,#2a2a28 0 6px,transparent 6px 10px)}
+    .leader i{display:block; height:100%; width:0; background:#e9e4d6; box-shadow:0 0 8px rgba(255,255,255,.5)}
+    .leader i.run{animation:leader 5.2s linear forwards}
+    .leader i.hold{animation-play-state:paused}
+    @keyframes leader{to{width:100%}}
+    .intertitle.in{animation:titleIn .55s cubic-bezier(.2,.7,.2,1)}
+    @keyframes titleIn{from{opacity:0; transform:translateY(10px); filter:blur(4px); letter-spacing:.04em}to{opacity:1; transform:none; filter:none; letter-spacing:0}}
+    /* tape loading */
+    .cas.load{animation:casLoad .55s cubic-bezier(.3,1.5,.5,1)}
+    @keyframes casLoad{0%{transform:translateY(-26px) rotate(-5deg) scale(1.06)}60%{transform:translateY(-3px) rotate(1.5deg)}100%{transform:translateY(-7px)}}
+    .film.still.unspool .frame-cell{animation:unspool .5s cubic-bezier(.2,.8,.3,1) both; animation-delay:calc(var(--i)*45ms)}
+    @keyframes unspool{from{opacity:0; transform:translateX(60px) rotate(4deg)}to{opacity:1; transform:none}}
     .intertitle{min-height:4.6em; margin:20px auto 0; max-width:800px; text-align:center; font-family:var(--serif); font-style:normal; font-size:clamp(17px,1.8vw,22px); color:var(--ink); position:relative; z-index:2; transition:opacity .45s}
     .intertitle small{display:block; font-style:normal; font-family:var(--type); font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--dim); margin-bottom:6px}
     .reel-controls{display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:12px; position:relative; z-index:2}
@@ -338,7 +376,7 @@
       .lb .nav-btn{top:auto; bottom:14px; transform:none}
     }
     @media (prefers-reduced-motion:reduce){
-      .flicker,.scratch,.marquee .bulbs i,.beam,.screen img.on,.film .track{animation:none!important}
+      .flicker,.scratch,.marquee .bulbs i,.beam,.screen,.screen img.on,.film .track,.fx *,.projector svg,.projector .lamp,.leader i,.intertitle,.cas,.film.still .frame-cell{animation:none!important}
       .film{overflow-x:auto; -webkit-mask-image:none; mask-image:none}
       #grain{display:none}
       .curtain{transition-duration:.01ms!important}
@@ -520,12 +558,14 @@
       <canvas class="dust" id="dust" aria-hidden="true"></canvas>
       <div class="screen-wrap">
         <div class="screen" id="screen">
+          <div class="fx" aria-hidden="true"><i class="specks"></i><i class="scr"></i><i class="scr b"></i><i class="cue"></i><i class="gate"></i></div>
           <div class="card-title" id="card-title"><div><small id="ct-kicker"></small><h2 id="ct-title"></h2></div></div>
           <div class="count" id="count"><span>3</span></div>
           <div class="curtain l" aria-hidden="true"></div>
           <div class="curtain r" aria-hidden="true"></div>
         </div>
       </div>
+      <div class="leader" aria-hidden="true"><i id="leader"></i></div>
       <div class="intertitle" id="intertitle" aria-live="polite"></div>
       <div class="reel-controls">
         <button id="prev-frame" aria-label="previous screenshot">‹ prev</button>
@@ -946,7 +986,13 @@
         const o=ctx.createOscillator(), g=ctx.createGain(); o.frequency.value=1000; g.gain.setValueAtTime(.06,ctx.currentTime); g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.18);
         o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+.2);
       }
-      return {start,stop,beep,get on(){return on},set on(v){on=v;try{localStorage.setItem('op-sound',v?'on':'off')}catch(e){} v?start():stop();}};
+      function click(){ // film advancing through the gate
+        if(!on||!ctx||ctx.state!=='running') return; const t=ctx.currentTime, n=Math.floor(ctx.sampleRate*.05), b=ctx.createBuffer(1,n,ctx.sampleRate), d=b.getChannelData(0);
+        for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,4);
+        const s=ctx.createBufferSource(); s.buffer=b; const f=ctx.createBiquadFilter(); f.type='bandpass'; f.frequency.value=1800; f.Q.value=1.2; const g=ctx.createGain(); g.gain.value=.12;
+        s.connect(f).connect(g).connect(ctx.destination); s.start(t);
+      }
+      return {start,stop,beep,click,get on(){return on},set on(v){on=v;try{localStorage.setItem('op-sound',v?'on':'off')}catch(e){} v?start():stop();}};
     })();
 
     /* ---- dust in the beam ---- */
@@ -978,13 +1024,20 @@
       let img=screen.querySelector(`img[data-i="${fi}"]`);
       if(!img){img=new Image(); img.dataset.i=fi; img.alt=''; img.decoding='async'; img.src=F(frames[fi]); screen.insertBefore(img,screen.firstChild);}
       screen.querySelectorAll('img.on').forEach(x=>x!==img&&x.classList.remove('on'));
-      void img.offsetWidth; img.classList.add('on');
+      screen.classList.remove('adv','cue-on'); void img.offsetWidth; img.classList.add('on'); screen.classList.add('adv'); Sound.click&&Sound.click();
+      clearTimeout(advT); advT=setTimeout(()=>screen.classList.remove('adv'),340);
       const nxt=new Image(); nxt.src=F(frames[(fi+1)%frames.length]);
       markTape();
       $('#frame-counter').textContent=`${String(fi+1).padStart(2,'0')} / ${String(frames.length).padStart(2,'0')}`;
-      if(facts.length){ inter.style.opacity=0; setTimeout(()=>{inter.innerHTML=`<small>fun fact no. ${fi%facts.length+1}</small>${facts[fi%facts.length]}`; inter.style.opacity=1;},250); }
+      if(facts.length){ inter.style.opacity=0; setTimeout(()=>{inter.innerHTML=`<small>fun fact no. ${fi%facts.length+1}</small>${facts[fi%facts.length]}`; inter.classList.remove('in'); void inter.offsetWidth; inter.classList.add('in'); inter.style.opacity=1;},250); }
     }
-    function schedule(){clearInterval(timer); if(!paused) timer=setInterval(()=>setFrame(fi+1),5200);}
+    let advT=0, cueT=0;
+    function schedule(){
+      clearInterval(timer); clearTimeout(cueT); const ld=$('#leader'); ld.classList.remove('run','hold'); void ld.offsetWidth;
+      if(paused||frames.length<2){ return; }
+      const arm=()=>{ ld.classList.remove('run'); void ld.offsetWidth; ld.classList.add('run'); clearTimeout(cueT); cueT=setTimeout(()=>screen.classList.add('cue-on'),4300); };
+      arm(); timer=setInterval(()=>{ setFrame(fi+1); arm(); },5200);
+    }
 
     async function openProject(id){
       const d=projectData[id]; if(!d) return;
@@ -1035,10 +1088,10 @@
       if(tapesFor!==cur.id){ tapesFor=cur.id;
         tp.innerHTML=cur.reels.length?`<h3>${cur.reels.length>1?'pick a tape':'the tape'}</h3><div class="shelf" role="tablist" aria-label="galleries">${cur.reels.map((r,ri)=>`<button class="cas" role="tab" data-r="${ri}"><span class="lbl"><b>${r.name.toLowerCase()}</b>${casWin}</span><span class="meta">${r.images.length} frames · tape ${ri+1}</span></button>`).join('')}</div><div class="tape-head"></div><div class="film still"><div class="track"></div></div>`:''; }
       if(!reel) return;
-      tp.querySelectorAll('.cas').forEach((c,i)=>c.setAttribute('aria-selected',i===active));
+      tp.querySelectorAll('.cas').forEach((c,i)=>{ c.setAttribute('aria-selected',i===active); c.classList.remove('load'); if(i===active){ void c.offsetWidth; c.classList.add('load'); } });
       tp.querySelector('.tape-head').innerHTML=`<b>${reel.name.toLowerCase()}</b><span>${reel.images.length} frames</span>`;
-      const st=tp.querySelector('.film.still'); st.scrollLeft=0;
-      st.querySelector('.track').innerHTML=reel.images.map((im,i)=>`<button class="frame-cell" data-i="${i}" aria-label="frame ${i+1}"><span class="pic"><img src="${T(im)}" alt="" loading="lazy" decoding="async"></span><span class="edge" aria-hidden="true"><span>${String(i+1).padStart(2,'0')}</span></span></button>`).join('');
+      const st=tp.querySelector('.film.still'); st.scrollLeft=0; st.classList.remove('unspool'); void st.offsetWidth; st.classList.add('unspool');
+      st.querySelector('.track').innerHTML=reel.images.map((im,i)=>`<button class="frame-cell" data-i="${i}" style="--i:${Math.min(i,16)}" aria-label="frame ${i+1}"><span class="pic"><img src="${T(im)}" alt="" loading="lazy" decoding="async"></span><span class="edge" aria-hidden="true"><span>${String(i+1).padStart(2,'0')}</span></span></button>`).join('');
     }
     $('#tapes').onclick=e=>{
       const cas=e.target.closest('.cas'), cell=e.target.closest('.frame-cell'); if(!cas&&!cell) return;
@@ -1049,7 +1102,7 @@
     let lastFocus=null;
     function closeTheatre(){
       document.querySelector('.wrap').inert=false; if(lastFocus&&lastFocus.focus){lastFocus.focus({preventScroll:true});} lastFocus=null;
-      runId++; clearInterval(timer); Sound.stop(); Dust.stop();
+      runId++; clearInterval(timer); clearTimeout(cueT); Sound.stop(); Dust.stop();
       th.classList.remove('open'); th.setAttribute('aria-hidden','true'); document.body.style.overflow='';
       document.title='obviouslypurple — portfolio';
     }
