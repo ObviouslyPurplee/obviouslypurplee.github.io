@@ -56,10 +56,10 @@
 
     #pavement{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
     .letter-zone{position:relative}
-    .petals{position:absolute; inset:-40px -8vw 0; pointer-events:none; z-index:3; overflow:hidden}
+    .petals{position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden}
     .petal{position:absolute; top:-40px; width:var(--w); height:calc(var(--w)*.78); animation:pfall var(--d) linear var(--delay) infinite; will-change:transform}
     .petal i{display:block; width:100%; height:100%; border-radius:150% 0 150% 0; background:radial-gradient(ellipse at 30% 30%,#f6e9ea,#d9b9bd 55%,#a98288); box-shadow:inset -2px -2px 4px rgba(90,40,50,.35),0 2px 3px rgba(0,0,0,.35); opacity:.92; animation:pspin var(--s) ease-in-out infinite alternate}
-    @keyframes pfall{0%{transform:translate(0,0)}25%{transform:translate(var(--x1),25vh)}50%{transform:translate(var(--x2),50vh)}75%{transform:translate(var(--x1),75vh)}100%{transform:translate(var(--x2),calc(100% + 110vh))}}
+    @keyframes pfall{0%{transform:translate(0,0)}25%{transform:translate(var(--x1),25vh)}50%{transform:translate(var(--x2),50vh)}75%{transform:translate(var(--x1),75vh)}100%{transform:translate(var(--x2),calc(100vh + 80px))}}
     @keyframes pspin{from{transform:rotate3d(1,.4,.2,0deg) rotate(var(--r))}to{transform:rotate3d(1,.4,.2,170deg) rotate(calc(var(--r) + 120deg))}}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad); position:relative; z-index:2}
 
@@ -314,6 +314,7 @@
   </style>
 </head>
 <body>
+  <div class="petals" id="petals" aria-hidden="true"></div>
   <canvas id="grain" aria-hidden="true"></canvas>
   <div class="vignette" aria-hidden="true"></div>
   <div class="flicker" aria-hidden="true"></div>
@@ -372,7 +373,7 @@
         </button>
         <div class="seal-hint">click the wax seal to open my letter</div>
       </div>
-      <div class="letter-zone"><div class="petals" id="petals" aria-hidden="true"></div>
+      <div class="letter-zone">
       <article class="letter" aria-labelledby="letter-heading">
         <div class="folds" aria-hidden="true"></div>
         <div class="letterhead">
@@ -638,7 +639,7 @@
     /* ---- cracked pavement + petals ---- */
     (function petals(){
       const box=$('#petals'); if(!box||reduceMotion) return;
-      for(let i=0;i<16;i++){
+      for(let i=0;i<22;i++){
         const p=document.createElement('span'); p.className='petal';
         const st=p.style; st.left=Math.random()*100+'%';
         st.setProperty('--w',(12+Math.random()*12)+'px'); st.setProperty('--d',(11+Math.random()*10)+'s'); st.setProperty('--delay',(-Math.random()*20)+'s');
