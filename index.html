@@ -83,7 +83,7 @@
     .marquee .bulbs i:nth-child(even){animation-delay:.8s}
     @keyframes bulb{0%,100%{opacity:1}50%{opacity:.2}}
     .marquee small{font-family:var(--type); letter-spacing:.04em; text-transform:uppercase; color:var(--dim); font-size:13px; letter-spacing:.14em}
-    .marquee h1{font-family:var(--script); font-weight:400; font-size:clamp(46px,7.2vw,98px); line-height:1; padding:.55em .6em 1em; margin:0; letter-spacing:0; text-shadow:0 0 22px rgba(255,255,255,.18)}
+    .marquee h1{font-family:var(--script); font-weight:400; font-size:clamp(40px,5.4vw,76px); line-height:1; padding:.3em 1.3em .8em; margin:0; letter-spacing:0; text-shadow:0 0 22px rgba(255,255,255,.18)}
     .marquee p{font-family:var(--type); font-style:normal; font-size:clamp(12px,1.2vw,15px); letter-spacing:clamp(.06em,.8vw,.16em); color:var(--dim); margin:0}
 
     .letter{position:relative; max-width:860px; margin:34px auto 0; background:var(--paper); color:var(--paper-ink); padding:clamp(22px,4vw,44px) clamp(20px,4.5vw,58px) clamp(24px,4vw,40px); font-family:var(--typewriter); font-size:clamp(16px,1.3vw,18px); line-height:1.6; box-shadow:0 30px 80px rgba(0,0,0,.7); transform:rotate(-.6deg); filter:grayscale(1) contrast(1.04)}
@@ -168,15 +168,19 @@
     .letter .signature,.letter .ps{clip-path:inset(0 100% 0 0)}
     .letter.done .signature,.letter.done .ps{transition:clip-path 1.6s steps(24) .5s; clip-path:inset(0 0 0 0)}
     .letter.done .ps{transition-delay:1.6s}
-    .typewriter{position:fixed; left:50%; bottom:-6px; z-index:50; width:min(460px,86vw); transform:translate(-50%,110%); transition:transform .7s cubic-bezier(.3,.8,.3,1); pointer-events:none; filter:drop-shadow(0 -10px 30px rgba(0,0,0,.6))}
+    .typewriter{position:fixed; left:50%; bottom:0; z-index:50; width:min(520px,92vw); transform:translate(-50%,110%); transition:transform .7s cubic-bezier(.3,.8,.3,1); pointer-events:none; filter:drop-shadow(0 -10px 30px rgba(0,0,0,.6))}
     .typewriter.on{transform:translate(-50%,0)}
     .typewriter svg{width:100%; height:auto; display:block}
+    .typewriter canvas{display:none}
+    .typewriter.is3d canvas{display:block}
+    .typewriter.is3d svg{display:none}
     .typewriter .carriage{transform:translateX(var(--carriage,0)); transition:transform .08s}
     .typewriter .k,.typewriter .space{transition:transform .05s}
     .typewriter .k.down,.typewriter .space.down{transform:translateY(3px)}
     .typewriter .bar{transform-box:view-box; transition:transform .06s}
     .typewriter .bar.strike{stroke:#e9e6dc}
     .hurry{position:fixed; right:18px; bottom:18px; z-index:51; display:block; margin:14px auto 0; font-family:var(--hand); font-size:18px; background:var(--ink); color:var(--bg); border:0; padding:6px 16px; transform:rotate(-2deg)}
+    @media (max-width:600px){.hurry{bottom:auto; top:14px}}
     .letter-actions,.after-letter{transition:opacity .6s}
     body.sealed .letter-actions{opacity:0; pointer-events:none}
     .signature img{display:inline-block; height:64px; filter:grayscale(1) brightness(.15)}
@@ -417,6 +421,7 @@
       </article>
       </div>
       <div class="typewriter" id="typewriter" aria-hidden="true">
+        <canvas id="tw3d"></canvas>
         <svg viewBox="0 0 520 440">
           <defs>
             <linearGradient id="twBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3a37"/><stop offset=".55" stop-color="#1d1c1a"/><stop offset="1" stop-color="#0d0c0b"/></linearGradient>
@@ -1044,6 +1049,7 @@
       const tbH=()=>typewriter.classList.contains('on')?typewriter.offsetHeight+20:0;
       const keys=[...typewriter.querySelectorAll('.k')], bars=[...typewriter.querySelectorAll('.bar')];
       function press(which){
+        if(window.tw3d){ window.tw3d.press(which); return; }
         const k=which==='space'?typewriter.querySelector('.space'):keys[Math.random()*keys.length|0];
         k.classList.add('down'); setTimeout(()=>k.classList.remove('down'),70);
         if(which!=='space'){ const b=bars[Math.random()*bars.length|0]; b.classList.add('strike'); setTimeout(()=>b.classList.remove('strike'),80); }
@@ -1098,5 +1104,6 @@
     logo.onclick=()=>{ if(song.paused){song.currentTime=0; song.play().catch(()=>{}); logo.setAttribute('aria-pressed','true');} else {song.pause(); logo.setAttribute('aria-pressed','false');} };
   })();
   </script>
+  <script type="module" src="js/typewriter3d.js"></script>
 </body>
 </html>
