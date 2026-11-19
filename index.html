@@ -647,6 +647,9 @@
   (function(){
     const $=s=>document.querySelector(s);
     const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // a reload always starts fresh at the sealed envelope (project deep links still skip it)
+    if('scrollRestoration' in history) history.scrollRestoration='manual';
+    if(/^#(projects|news|top|home)?$/.test(location.hash)){ if(location.hash) history.replaceState(null,'',location.pathname+location.search); scrollTo(0,0); }
     const T=n=>`img/t/${n.replace(/\.png$/,'')}.webp`, F=n=>`img/f/${n.replace(/\.png$/,'')}.webp`;
 
     /* ---- socials ---- */
