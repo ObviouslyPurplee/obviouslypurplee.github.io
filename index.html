@@ -23,7 +23,7 @@
   <link rel="icon" href="img/t/2026logo@3x.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Limelight&family=Shadows+Into+Light&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Limelight&family=Shadows+Into+Light&family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     @font-face{font-family:'Panamericana Uno';src:url('Panamericana%20Uno.otf') format('opentype');font-display:swap;ascent-override:155%;descent-override:38%;line-gap-override:12%}
     @font-face{font-family:'Gabriele Light Ribbon FG';src:local('Gabriele Light Ribbon FG'),url('fonts/GabrieleLightRibbonFG.ttf') format('truetype');font-display:swap}
@@ -31,8 +31,8 @@
     @font-face{font-family:'Gabriele Black Ribbon FG';src:local('Gabriele Black Ribbon FG'),url('fonts/GabrieleBlackRibbonFG.ttf') format('truetype');font-display:swap}
     :root{
       --hand:'Shadows Into Light',cursive; --script:'Panamericana Uno','Playfair Display',serif; --ribbon:'Panamericana Uno','Playfair Display',serif; --typewriter:'Gabriele Light Ribbon FG','Special Elite','Courier New',monospace; --typedark:'Gabriele Dark Ribbon FG','Special Elite','Courier New',monospace;
-      --bg:#0b0b0b; --ink:#ecebe6; --dim:#9a9993; --faint:#4a4a47; --paper:#e9e4d6; --paper-ink:#1b1a17;
-      --display:'Panamericana Uno','Playfair Display',serif; --serif:'Playfair Display',Georgia,serif; --type:'Gabriele Dark Ribbon FG','Special Elite','Courier New',monospace;
+      --bg:#0b0b0b; --ink:#ecebe6; --dim:#9a9993; --faint:#4a4a47; --paper:#c9c2b0; --paper-ink:#1b1a17;
+      --display:'Panamericana Uno','Playfair Display',serif; --serif:'STIX Two Text','Playfair Display',Georgia,serif; --type:'Gabriele Dark Ribbon FG','Special Elite','Courier New',monospace;
       --max:1320px; --pad:clamp(16px,3vw,44px);
     }
     *{box-sizing:border-box}
@@ -53,6 +53,13 @@
     .scratch.s2{animation-duration:8.3s; animation-delay:-3s; background:rgba(255,255,255,.1)}
     @keyframes scratch{0%{left:12%;opacity:0}8%{opacity:1}20%{left:14%;opacity:0}50%{left:71%;opacity:0}55%{opacity:.8}62%{left:69%;opacity:0}100%{left:69%;opacity:0}}
 
+    #pavement{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+    .letter-zone{position:relative}
+    .petals{position:absolute; inset:-40px -8vw 0; pointer-events:none; z-index:3; overflow:hidden}
+    .petal{position:absolute; top:-40px; width:var(--w); height:calc(var(--w)*.78); animation:pfall var(--d) linear var(--delay) infinite; will-change:transform}
+    .petal i{display:block; width:100%; height:100%; border-radius:150% 0 150% 0; background:radial-gradient(ellipse at 30% 30%,#f6e9ea,#d9b9bd 55%,#a98288); box-shadow:inset -2px -2px 4px rgba(90,40,50,.35),0 2px 3px rgba(0,0,0,.35); opacity:.92; animation:pspin var(--s) ease-in-out infinite alternate}
+    @keyframes pfall{0%{transform:translate(0,0)}25%{transform:translate(var(--x1),25vh)}50%{transform:translate(var(--x2),50vh)}75%{transform:translate(var(--x1),75vh)}100%{transform:translate(var(--x2),calc(100% + 110vh))}}
+    @keyframes pspin{from{transform:rotate3d(1,.4,.2,0deg) rotate(var(--r))}to{transform:rotate3d(1,.4,.2,170deg) rotate(calc(var(--r) + 120deg))}}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad); position:relative; z-index:2}
 
     /* ---------- header ---------- */
@@ -75,11 +82,12 @@
     .marquee .bulbs i:nth-child(even){animation-delay:.8s}
     @keyframes bulb{0%,100%{opacity:1}50%{opacity:.2}}
     .marquee small{font-family:var(--type); letter-spacing:.04em; text-transform:uppercase; color:var(--dim); font-size:13px}
-    .marquee h1{font-family:var(--script); font-weight:400; font-size:clamp(64px,11vw,150px); line-height:1.1; margin:.05em 0 .6em; letter-spacing:0; text-shadow:0 0 22px rgba(255,255,255,.18)}
+    .marquee h1{font-family:var(--script); font-weight:400; font-size:clamp(50px,8.5vw,116px); line-height:1.1; margin:.05em 0 .6em; letter-spacing:0; text-shadow:0 0 22px rgba(255,255,255,.18)}
     .marquee p{font-style:italic; color:var(--dim); margin:0}
 
-    .letter{position:relative; max-width:860px; margin:34px auto 0; background:var(--paper); color:var(--paper-ink); padding:clamp(26px,5vw,64px) clamp(22px,5vw,70px) clamp(30px,5vw,56px); font-family:var(--typewriter); font-size:clamp(16px,1.3vw,18px); line-height:1.75; box-shadow:0 30px 80px rgba(0,0,0,.7); transform:rotate(-.6deg); filter:grayscale(1) contrast(1.04)}
-    .letter::before{content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 20% 10%,rgba(0,0,0,.06),transparent 40%),radial-gradient(ellipse at 90% 85%,rgba(0,0,0,.1),transparent 45%),repeating-linear-gradient(0deg,rgba(0,0,0,.018) 0 1px,transparent 1px 3px); mix-blend-mode:multiply}
+    .letter{position:relative; max-width:860px; margin:34px auto 0; background:var(--paper); color:var(--paper-ink); padding:clamp(22px,4vw,44px) clamp(20px,4.5vw,58px) clamp(24px,4vw,40px); font-family:var(--typewriter); font-size:clamp(16px,1.3vw,18px); line-height:1.6; box-shadow:0 30px 80px rgba(0,0,0,.7); transform:rotate(-.6deg); filter:grayscale(1) contrast(1.04)}
+    .letter::before{content:""; position:absolute; inset:0; pointer-events:none; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.007' numOctaves='4' seed='7'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='5'%3E%3CfeDistantLight azimuth='225' elevation='38'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E") center/cover,radial-gradient(ellipse at 20% 10%,rgba(0,0,0,.06),transparent 40%),radial-gradient(ellipse at 90% 85%,rgba(0,0,0,.1),transparent 45%),repeating-linear-gradient(0deg,rgba(0,0,0,.018) 0 1px,transparent 1px 3px); mix-blend-mode:multiply; opacity:.5}
+    .letter{clip-path:polygon(0 1.2%,6% 0,19% .9%,33% .2%,48% 1%,62% .1%,77% .8%,91% 0,100% 1.5%,99.4% 18%,100% 37%,99.3% 58%,100% 79%,99.5% 100%,84% 99.2%,68% 100%,51% 99.1%,36% 100%,20% 99.3%,7% 100%,0 98.6%,.6% 80%,0 61%,.7% 40%,0 21%)}
     .letter::after{content:""; position:absolute; inset:12px; border:1.5px solid rgba(27,26,23,.55); outline:1px solid rgba(27,26,23,.3); outline-offset:-6px; pointer-events:none}
     .letterhead{text-align:center; border-bottom:2px solid var(--paper-ink); padding-bottom:14px; margin-bottom:22px}
     .letterhead .org{font-family:var(--script); font-size:clamp(40px,5vw,62px); letter-spacing:0; line-height:1.3}
@@ -87,12 +95,12 @@
     .letter .meta-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:13px; margin-bottom:18px}
     .letter h2{font-family:var(--typedark); font-weight:400; font-size:clamp(22px,2.6vw,30px); line-height:1.25; margin:0 0 14px}
     .letter p{margin:0 0 14px}
-    .acts{list-style:none; padding:0; margin:6px 0 20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:4px 28px}
-    .acts li{display:flex; gap:10px; border-bottom:1px dotted rgba(27,26,23,.5); padding:4px 0}
+    .acts{list-style:none; padding:0; margin:4px 0 14px; display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:0 22px; font-size:.92em}
+    .acts li{display:flex; gap:8px; border-bottom:1px dotted rgba(27,26,23,.45); padding:2px 0}
     .acts li b{font-weight:400; min-width:2.2em}
     .credits{font-size:14px}
     .credits strong{font-family:var(--serif); font-size:16px}
-    .stamp{position:absolute; left:clamp(30px,6vw,80px); bottom:clamp(34px,5vw,60px); border:3px double var(--paper-ink); padding:8px 14px; transform:rotate(-8deg); font-size:13px; letter-spacing:.2em; text-transform:uppercase; text-align:center; line-height:1.3; opacity:.8}
+    .stamp{position:absolute; left:clamp(30px,6vw,80px); bottom:clamp(110px,10vw,130px); border:3px double var(--paper-ink); padding:8px 14px; transform:rotate(-8deg); font-size:13px; letter-spacing:.2em; text-transform:uppercase; text-align:center; line-height:1.3; opacity:.8}
     .stamp span{display:block; font-family:var(--display); font-size:22px; letter-spacing:.06em}
     .contact-card{margin-top:22px; border-top:2px solid var(--paper-ink); padding-top:16px; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px 24px; font-size:14px}
     .contact-card a{text-decoration:none; border-bottom:1px solid rgba(27,26,23,.4)}
@@ -292,6 +300,7 @@
   </style>
 </head>
 <body>
+  <canvas id="pavement" aria-hidden="true"></canvas>
   <canvas id="grain" aria-hidden="true"></canvas>
   <div class="vignette" aria-hidden="true"></div>
   <div class="flicker" aria-hidden="true"></div>
@@ -350,6 +359,7 @@
         </button>
         <div class="seal-hint">click the wax seal to open my letter</div>
       </div>
+      <div class="letter-zone"><div class="petals" id="petals" aria-hidden="true"></div>
       <article class="letter" aria-labelledby="letter-heading">
         <div class="letterhead">
           <div class="org">obviouslypurple</div>
@@ -358,20 +368,19 @@
         <div class="meta-row"><span>To: you, the person reading this</span><span>Re: working together</span></div>
         <div class="stamp">available<span>for hire</span>2026 season</div>
         <h2 id="letter-heading">Hi there,</h2>
-        <p>I'm <strong>Purple</strong>, a versatile Roblox developer focused on art direction, game design, and creative production. I take projects from early concepts to polished, playable experiences: defining the visual identity of a game, designing its world and systems, and coordinating the bigger picture behind production.</p>
+        <p>I'm <strong>Purple</strong>, a versatile Roblox developer focused on art direction, game design, and creative production. I take games from early concept to polished, playable experience.</p>
         <p>My credits include <strong>RoCitizens</strong>, <strong>Cooked!</strong> (2.1M+ visits), brand activations for <strong>Warner Music Group</strong>, and <strong>The Voyage</strong>, which was showcased at RDC. I'm open to new work, full-time or contract, and I'd love to hear what you're making.</p>
         <p style="margin-bottom:6px">What I bring:</p>
         <ol class="acts">
-          <li><b>I.</b> Art direction &amp; visual identity</li>
-          <li><b>II.</b> Environment design &amp; lighting</li>
+          <li><b>I.</b> Art direction</li>
+          <li><b>II.</b> Environments &amp; lighting</li>
           <li><b>III.</b> UI design</li>
-          <li><b>IV.</b> 3D modelling &amp; PBR texturing</li>
-          <li><b>V.</b> Game &amp; update design</li>
-          <li><b>VI.</b> Branding &amp; social marketing</li>
-          <li><b>VII.</b> Project management &amp; live ops</li>
-          <li><b>VIII.</b> Cross-team communication</li>
+          <li><b>IV.</b> 3D &amp; texturing</li>
+          <li><b>V.</b> Game design</li>
+          <li><b>VI.</b> Branding &amp; marketing</li>
+          <li><b>VII.</b> Production &amp; live ops</li>
+          <li><b>VIII.</b> Team leadership</li>
         </ol>
-        <p class="credits">Roles so far: <strong>Creative Lead</strong> on RoCitizens and Cooked!, <strong>Co-Founder &amp; Lead Artist</strong> on Cart Ride For Treasure, and <strong>Environment Artist</strong> for Warner Music Group.</p>
         <p>Want to work together? Reach me here:</p>
         <div class="contact-card">
           <div><span>discord</span>@obviouslypurple</div>
@@ -382,6 +391,7 @@
         <div class="signature">Talk soon,<br><img src="img/t/2026logo@3x.webp" alt="signed, obviouslypurple"></div>
         <p class="ps">P.S. my work is below. Pick any reel, take a seat, and turn your sound up!</p>
       </article>
+      </div>
       <button class="hurry hidden" id="hurry">hurry up, typist! (skip)</button>
 
       <div class="letter-actions">
@@ -608,6 +618,40 @@
         for(let f=0;f<5;f++){const d=x.createImageData(W,H),u=new Uint32Array(d.data.buffer);for(let k=0;k<u.length;k++){const v=Math.random()*255|0;u[k]=0xff000000|v<<16|v<<8|v;}frames.push(d);}}
       build(); let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(build,200);});
       (function loop(t){ if(t-last>60){x.putImageData(frames[i++%frames.length],0,0);last=t;} requestAnimationFrame(loop);})(0);
+    })();
+
+    /* ---- cracked pavement + petals ---- */
+    (function pavement(){
+      const c=$('#pavement'), x=c.getContext('2d');
+      function draw(){
+        const W=c.width=innerWidth, H=c.height=innerHeight; x.fillStyle='#0d0d0c'; x.fillRect(0,0,W,H);
+        for(let i=0;i<W*H/900;i++){const v=12+Math.random()*16|0; x.fillStyle=`rgba(${v},${v},${v-1},.9)`; x.fillRect(Math.random()*W,Math.random()*H,1+Math.random()*2,1+Math.random()*2);}
+        // slab seams
+        x.strokeStyle='rgba(0,0,0,.55)'; x.lineWidth=2; const slab=Math.max(260,W/4);
+        for(let gx=slab;gx<W;gx+=slab){x.beginPath();x.moveTo(gx,0);x.lineTo(gx,H);x.stroke();}
+        for(let gy=slab*.8;gy<H;gy+=slab*.8){x.beginPath();x.moveTo(0,gy);x.lineTo(W,gy);x.stroke();}
+        // branching cracks
+        function crack(px,py,ang,len,w,depth){
+          x.beginPath(); x.moveTo(px,py);
+          for(let i=0;i<len;i+=6){ang+=(Math.random()-.5)*.6; px+=Math.cos(ang)*6; py+=Math.sin(ang)*6; x.lineTo(px,py);
+            if(depth<3&&Math.random()<.035) crack(px,py,ang+(Math.random()<.5?-1:1)*(.5+Math.random()*.8),len*.45,w*.6,depth+1);}
+          x.strokeStyle='rgba(0,0,0,.85)'; x.lineWidth=w; x.stroke();
+          x.strokeStyle='rgba(255,255,255,.035)'; x.lineWidth=w*.5; x.translate(1,1); x.stroke(); x.setTransform(1,0,0,1,0,0);
+        }
+        for(let i=0;i<Math.ceil(W/300);i++) crack(Math.random()*W,Math.random()*H,Math.random()*6.3,180+Math.random()*320,1.6+Math.random()*1.2,0);
+      }
+      draw(); let t; addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(draw,250);});
+    })();
+    (function petals(){
+      const box=$('#petals'); if(!box||reduceMotion) return;
+      for(let i=0;i<16;i++){
+        const p=document.createElement('span'); p.className='petal';
+        const st=p.style; st.left=Math.random()*100+'%';
+        st.setProperty('--w',(12+Math.random()*12)+'px'); st.setProperty('--d',(11+Math.random()*10)+'s'); st.setProperty('--delay',(-Math.random()*20)+'s');
+        st.setProperty('--x1',(-40+Math.random()*80)+'px'); st.setProperty('--x2',(-60+Math.random()*120)+'px');
+        st.setProperty('--s',(2.5+Math.random()*3)+'s'); st.setProperty('--r',(Math.random()*360)+'deg');
+        p.appendChild(document.createElement('i')); box.appendChild(p);
+      }
     })();
 
     /* ---- project data (content carried over from the previous site) ---- */
